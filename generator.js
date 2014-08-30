@@ -3,7 +3,6 @@ var generateDurationApp = function (input) {
 
   output += "/* Initialize variables */\r\n";
   output += "if (SUUNTO_DURATION == 0) {\r\n";
-  output += "  TARGET = 0;\r\n";
   output += "  RESULT = 0;\r\n";
   output += "}\r\n\r\n";
 
@@ -50,7 +49,48 @@ var generateDurationApp = function (input) {
 };
 
 var generateTargetApp = function (input) {
-  return "";
+  var output = "";
+
+  output += "/* Initialize variables */\r\n";
+  output += "if (SUUNTO_DURATION == 0) {\r\n";
+  output += "  ACTUALPACE = 0;\r\n";
+  output += "  TARGETPACE = 0;\r\n";
+  output += "  TARGETSEC = 0;\r\n";
+  output += "  TARGETMIN = 0;\r\n";
+  output += "  RESULT = 0;\r\n";
+  output += "}\r\n\r\n";
+
+  output += "ACTUALPACE = SUUNTO_PACE*60;\r\n\r\n";
+
+  for (var i = 0; i < input.steps.length; ++i) {
+    var lapNumber = i + 1;
+    var step = input.steps[i];
+
+    output += "/* Lap " + lapNumber +" is " + step.type + " with target type " + step.target.type + " */\r\n"
+    output += "if (SUUNTO_LAP_NUMBER == " + lapNumber + ") {\r\n";
+
+    if (step.target.type === 'None') {
+      output += "  prefix = \"at\";\r\n";
+      output += "  postfix = \"/km\";\r\n";
+      output += "  TARGETPACE = ACTUALPACE;\r\n";
+      output += "  TARGETSEC = Suunto.mod(TARGETPACE, 60);\r\n";
+      output += "  TARGETMIN = (TARGETPACE - TARGETSEC) / 60;\r\n";
+      output += "  RESULT = TARGETMIN + TARGETSEC/100;\r\n";
+    }
+
+    if (step.target.type === 'Pace') {
+      output += "  prefix = \"to\";\r\n";
+      output += "  postfix = \"/km\";\r\n";
+      output += "  TARGETPACE = " + step.target.to + ";\r\n";
+      output += "  TARGETSEC = Suunto.mod(TARGETPACE, 60);\r\n";
+      output += "  TARGETMIN = (TARGETPACE - TARGETSEC) / 60;\r\n";
+      output += "  RESULT = TARGETMIN + TARGETSEC/100;\r\n";
+    }
+
+    output += "}\r\n\r\n";
+  }
+
+  return output;
 }
 
 module.exports = {

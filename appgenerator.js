@@ -13,5 +13,5 @@ fs.readFile(file, 'utf8', function (err, data) {
   data = preprocessor.flattenRepeats(data);
 
   console.dir(data);
-	console.log(generator.generateDurationApp(data));
+	console.log(generator.generateTargetApp(data));
 });
