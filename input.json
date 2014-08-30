@@ -1,100 +1,100 @@
 {
-	"steps": [
-		{
-			"type": "WarmUp",
-			"duration": {
-				"type": "Lap"
-			},
-			"target": {
-				"type": "None"
-			}
-		},
-		{
-			"type": "Interval",
-			"duration": {
-				"type": "Distance",
-				"value": 1.2
-			},
-			"target": {
-				"type": "Pace",
-				"from": 240,
-				"to": 250
-			}
-		},
-		{
-			"type": "Recovery",
-			"duration": {
-				"type": "Distance",
-				"value": 0.4
-			},
-			"target": {
-				"type": "None"
-			}
-		},
-		{
-			"type": "Repeat",
-			"times": 2,
-			"steps": [
-				{
-					"type": "Interval",
-					"duration": {
-						"type": "Distance",
-						"value": 0.8
-					},
-					"target": {
-						"type": "Pace",
-						"from": 230,
-						"to": 240
-					}
-				},
-				{
-					"type": "Recovery",
-					"duration": {
-						"type": "Distance",
-						"value": 0.2
-					},
-					"target": {
-						"type": "None"
-					}
-				}
-			]
-		},
-		{
-			"type": "Repeat",
-			"times": 4,
-			"steps": [
-				{
-					"type": "Interval",
-					"duration": {
-						"type": "Distance",
-						"value": 0.2
-					},
-					"target": {
-						"type": "Pace",
-						"from": 200,
-						"to": 210
-					}
-				},
-				{
-					"type": "Recovery",
-					"duration": {
-						"type": "Distance",
-						"value": 0.2
-					},
-					"target": {
-						"type": "None"
-					}
-				}
-			]
-		},
-		{
-			"type": "CoolDown",
-			"duration": {
-				"type": "Lap"
-			},
-			"target": {
-				"type": "None"
-			}
-		}
-	]
+  "steps": [
+    {
+      "type": "WarmUp",
+      "duration": {
+        "type": "Lap"
+      },
+      "target": {
+        "type": "None"
+      }
+    },
+    {
+      "type": "Interval",
+      "duration": {
+        "type": "Distance",
+        "value": 1.2
+      },
+      "target": {
+        "type": "Pace",
+        "from": 240,
+        "to": 250
+      }
+    },
+    {
+      "type": "Recovery",
+      "duration": {
+        "type": "Distance",
+        "value": 0.4
+      },
+      "target": {
+        "type": "None"
+      }
+    },
+    {
+      "type": "Repeat",
+      "times": 2,
+      "steps": [
+        {
+          "type": "Interval",
+          "duration": {
+            "type": "Distance",
+            "value": 0.8
+          },
+          "target": {
+            "type": "Pace",
+            "from": 230,
+            "to": 240
+          }
+        },
+        {
+          "type": "Recovery",
+          "duration": {
+            "type": "Distance",
+            "value": 0.2
+          },
+          "target": {
+            "type": "None"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Repeat",
+      "times": 4,
+      "steps": [
+        {
+          "type": "Interval",
+          "duration": {
+            "type": "Distance",
+            "value": 0.2
+          },
+          "target": {
+            "type": "Pace",
+            "from": 200,
+            "to": 210
+          }
+        },
+        {
+          "type": "Recovery",
+          "duration": {
+            "type": "Distance",
+            "value": 0.2
+          },
+          "target": {
+            "type": "None"
+          }
+        }
+      ]
+    },
+    {
+      "type": "CoolDown",
+      "duration": {
+        "type": "Lap"
+      },
+      "target": {
+        "type": "None"
+      }
+    }
+  ]
 }
