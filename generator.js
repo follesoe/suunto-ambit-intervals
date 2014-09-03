@@ -40,7 +40,7 @@ var generateDurationApp = function (input) {
     output += "}\r\n\r\n";
   }
 
-  output += "/* Check if target is meet, if so altert to notify runner */\r\n";
+  output += "/* Check if duration is reached, if so altert to notify runner */\r\n";
   output += "if (RESULT < 0) {\r\n";
   output += "  RESULT = 0;\r\n";
   output += "  Suunto.alarmBeep();\r\n";
