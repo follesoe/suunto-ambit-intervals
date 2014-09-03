@@ -1,6 +1,7 @@
 var generateDurationApp = function (input) {
   var output = "";
 
+  output += "/* Interval set - duration application */\r\n"
   output += "/* Initialize variables */\r\n";
   output += "if (SUUNTO_DURATION == 0) {\r\n";
   output += "  RESULT = 0;\r\n";
@@ -51,6 +52,7 @@ var generateDurationApp = function (input) {
 var generateTargetApp = function (input) {
   var output = "";
 
+  output += "/* Interval set - target application */\r\n"
   output += "/* Initialize variables */\r\n";
   output += "if (SUUNTO_DURATION == 0) {\r\n";
   output += "  ACTUALPACE = 0;\r\n";

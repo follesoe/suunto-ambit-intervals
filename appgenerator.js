@@ -1,5 +1,5 @@
 var fs = require('fs');
-var file = __dirname + '/input.json';
+var file = __dirname + '/intervalsets/RW0314v2Week3-Hege.json';
 var preprocessor = require('./preprocessor');
 var generator = require('./generator');
 
@@ -13,5 +13,5 @@ fs.readFile(file, 'utf8', function (err, data) {
   data = preprocessor.flattenRepeats(data);
 
   console.dir(data);
-	console.log(generator.generateTargetApp(data));
+	console.log(generator.generateDurationApp(data));
 });
