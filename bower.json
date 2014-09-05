@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "angular": "~1.2.23",
-    "angular-ui-tree": "~2.1.5"
+    "angular-ui-tree": "~2.1.5",
+    "lodash": "~2.4.1"
   }
 }

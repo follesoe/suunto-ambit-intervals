@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css"></link>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
-
+    <script src="bower_components/lodash/dist/lodash.js"></script>
   </head>
   <body ng-controller="intervalDesignerController">
     <script type="text/javascript">
@@ -32,8 +32,8 @@
                 },
                 "target": {
                   "type": "Pace",
-                  "from": 236,
-                  "to": 236
+                  "from": '04:10',
+                  "to": '04:15'
                 }
               },
               {
@@ -54,8 +54,8 @@
                 },
                 "target": {
                   "type": "Pace",
-                  "from": 227,
-                  "to": 227
+                  "from": '03:45',
+                  "to": '03:50'
                 }
               },
               {
@@ -76,8 +76,8 @@
                 },
                 "target": {
                   "type": "Pace",
-                  "from": 227,
-                  "to": 227
+                  "from": '03:50',
+                  "to": '03:55'
                 }
               },
               {
@@ -125,7 +125,11 @@
           })
           .controller('intervalDesignerController', ['$scope', function($scope) {
 
-            $scope.steps = data.steps;
+            $scope.interval = {
+              name: 'New Interval Set',
+              description: '',
+              steps: data.steps
+            }
             $scope.stepTypes = ['Other', 'WarmUp', 'Interval', 'Recovery', 'CoolDown'];
 
             $scope.addStep = function () {
@@ -134,7 +138,8 @@
                 duration: { type: 'Lap' },
                 target: { type: 'None' }
               }
-              $scope.steps.push(newStep);
+
+              $scope.interval.steps.push(newStep);
             };
 
             $scope.addRepeat = function () {
@@ -143,12 +148,11 @@
                 times: 1,
                 steps: []
               };
-              $scope.steps.push(newRepeat);
+              $scope.interval.steps.push(newRepeat);
             };
 
             $scope.options = {
               accept: function(sourceNode, destNode, destIndex) {
-
                 var data = sourceNode.$modelValue;
                 var destType = destNode.$element.attr('data-nodetype');
                 var sourceType = sourceNode.$element.attr('data-nodetype');
@@ -158,25 +162,25 @@
                 } else {
                   return true;
                 }
-
-                /*
-                if (sourceType === 'OutsideRepeat' && destType === 'Step') {
-                  return true;
-                } else if (sourceType === 'InsideRepeat' && destType === 'Repeat') {
-                  return true;
-                } else {
-                  return false;
-                }
-                */
               }
             };
           }]);
     </script>
     <h1>Suunto Ambit Intervals App Generator</h1>
 
-    <div ui-tree="options" data-empty-place-holder-enabled="false">
-      <ol ui-tree-nodes ng-model="steps" data-nodetype="Step" class="angular-ui-tree-nodes">
-        <li ng-repeat="step in steps" ui-tree-node data-nodetype="OutsideRepeat">
+    <label>
+      Name
+      <input type="text" ng-model="interval.name" />
+    </label>
+
+    <label>
+      Description
+      <textarea ng-model="interval.description"></textarea>
+    </label>
+
+  	<div ui-tree="options" data-empty-place-holder-enabled="false">
+      <ol ui-tree-nodes ng-model="interval.steps" data-nodetype="Step" class="angular-ui-tree-nodes">
+        <li ng-repeat="step in interval.steps" ui-tree-node data-nodetype="OutsideRepeat">
           <div ng-switch on="step.type">
             <div ng-switch-when="Repeat">
               <h2>Repeat <input type="text" ng-model="step.times" /> times</h2>
@@ -197,7 +201,7 @@
     <button ng-click="addStep()">Add Step</button>
     <button ng-click="addRepeat()">Add Repeat</button>
 
-   	<pre>{{ steps | json }}</pre>
+   	<pre>{{ interval | json }}</pre>
 
   </body>
 </html>
