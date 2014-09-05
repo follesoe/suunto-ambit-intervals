@@ -1,7 +1,8 @@
 <html ng-app="ambitIntervals">
   <head>
     <title>Suunto Ambit Intervals App Generator</title>
-    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
+    <link rel="stylesheet" href="main.css"></link>
+    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css"></link>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
 
@@ -114,9 +115,11 @@
               scope: {
                 step: '='
               },
-              template: '<div><span>{{step.type}}</span> <select ng-model="step.type" ng-options="stepType for stepType in stepTypes"></select></div>',
+              templateUrl: 'stepEditor.html',
               link: function ($scope, $element) {
                 $scope.stepTypes = ['WarmUp', 'Interval', 'Recovery', 'CoolDown'];
+                $scope.durationTypes = ['Distance', 'Lap'];
+                $scope.targetTypes = ['Pace', 'None'];
               }
             };
           })
@@ -149,7 +152,7 @@
         <li ng-repeat="step in steps" ui-tree-node data-nodetype="OutsideRepeat">
           <div ng-switch on="step.type">
             <div ng-switch-when="Repeat">
-              <h2>Repeat <input type="textbox" ng-model="step.times" /> times</h2>
+              <h2>Repeat <input type="text" ng-model="step.times" /> times</h2>
               <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat">
                 <li ng-repeat="repeatStep in step.steps" ui-tree-node data-nodetype="InsideRepeat">
                   <step-editor step="repeatStep"></step-editor>
