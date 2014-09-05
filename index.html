@@ -109,14 +109,8 @@
           .module('AmbitIntervals', ['ui.tree'])
           .controller('IntervalDesignerController', ['$scope', function($scope) {
 
-            $scope.list = [
-              {
-                title: 'Hello World!',
-                items: [{ title: 'Hello Caye Caulker!' }]
-              }
-            ];
-
             $scope.steps = data.steps;
+            $scope.stepTypes = ['WarmUp', 'Interval', 'Recovery', 'CoolDown'];
 
             $scope.options = {
               accept: function(sourceNode, destNode, destIndex) {
@@ -144,15 +138,15 @@
         <li ng-repeat="step in steps" ui-tree-node data-nodetype="OutsideRepeat">
           <div ng-switch on="step.type">
             <div ng-switch-when="Repeat">
-              <h2>Repeat {{step.times}} times</h2>
+              <h2>Repeat <input type="textbox" ng-model="step.times" /> times</h2>
               <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat">
-                <li ng-repeat="step in step.steps" ui-tree-node data-nodetype="InsideRepeat">
-                  <div><span>Step: {{step.type}}</span></div>
+                <li ng-repeat="repeatStep in step.steps" ui-tree-node data-nodetype="InsideRepeat">
+                  <div><span>{{repeatStep.type}}</span> : <select ng-model="repeatStep.type" ng-options="stepType for stepType in stepTypes"></select></div>
                 </li>
               </ol>
             </div>
             <div ng-switch-default>
-              <span>Step: {{step.type}}</span>
+              <span><span>{{step.type}}</span> <select ng-model="step.type" ng-options="stepType for stepType in stepTypes"></select>
             </div>
           </div>
         </li>
