@@ -24,11 +24,12 @@ fs.readFile(file, 'utf8', function (err, data) {
 
   data = JSON.parse(data);
   data = preprocessor.flattenRepeats(data);
+  data = preprocessor.convertPaceToSeconds(data);
 
   if (appType === 'duration') {
     console.log(generator.generateDurationApp(data));
   } else {
-    console.log(generator.generateTargetApp(data));  
+    console.log(generator.generateTargetApp(data));
   }
 
 });

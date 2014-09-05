@@ -1,3 +1,38 @@
+var convertPaceToSeconds = function (input) {
+  var regex = /(\d\d):(\d\d)/;
+
+  function convertPace (pace) {
+    var match = regex.exec(pace);
+    if (match && match.length > 1) {
+      var min = Number(match[1]);
+      var sec = Number(match[2]);
+      return (min*60 + sec).toString();
+    } else {
+      return pace;
+    }
+  }
+
+  function convertStep (step) {
+    if (step.target.type === 'Pace') {
+      step.target.from = convertPace(step.target.from);
+      step.target.to = convertPace(step.target.to);
+    }
+  }
+
+  function loopSteps (steps) {
+    for (var i = 0; i < steps.length; ++i) {
+      if (input.steps[i].type === 'Repeat') {
+        loopSteps(input.steps[i].steps);
+      } else {
+        convertStep(input.steps[i]);
+      }
+    }
+  }
+
+  loopSteps(input.steps);
+  return input;
+};
+
 var flattenRepeats = function (input) {
   var output = {
     steps: []
@@ -24,5 +59,6 @@ var flattenRepeats = function (input) {
 }
 
 module.exports = {
-  flattenRepeats: flattenRepeats
+  flattenRepeats: flattenRepeats,
+  convertPaceToSeconds: convertPaceToSeconds
 };
