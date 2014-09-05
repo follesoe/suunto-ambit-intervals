@@ -1,0 +1,18 @@
+{
+  "name": "ambit-intervals",
+  "version": "0.0.0",
+  "homepage": "https://github.com/follesoe/suunto-ambit-intervals",
+  "authors": [
+    "Jonas Follesø <jonas@follesoe.no>"
+  ],
+  "description": "Application to generate Suunto Ambit Apps for interval training",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
