@@ -1,4 +1,4 @@
-<html ng-app="AmbitIntervals">
+<html ng-app="ambitIntervals">
   <head>
     <title>Suunto Ambit Intervals App Generator</title>
     <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
@@ -6,7 +6,7 @@
     <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
 
   </head>
-  <body ng-controller="IntervalDesignerController">
+  <body ng-controller="intervalDesignerController">
     <script type="text/javascript">
       var data = {
         "steps": [
@@ -104,10 +104,23 @@
       };
 
 
-      var myAppMobule =
+      var myAppModule =
         angular
-          .module('AmbitIntervals', ['ui.tree'])
-          .controller('IntervalDesignerController', ['$scope', function($scope) {
+          .module('ambitIntervals', ['ui.tree'])
+          .directive('stepEditor', function () {
+            return {
+              restrict: 'E',
+              replace: true,
+              scope: {
+                step: '='
+              },
+              template: '<div><span>{{step.type}}</span> <select ng-model="step.type" ng-options="stepType for stepType in stepTypes"></select></div>',
+              link: function ($scope, $element) {
+                $scope.stepTypes = ['WarmUp', 'Interval', 'Recovery', 'CoolDown'];
+              }
+            };
+          })
+          .controller('intervalDesignerController', ['$scope', function($scope) {
 
             $scope.steps = data.steps;
             $scope.stepTypes = ['WarmUp', 'Interval', 'Recovery', 'CoolDown'];
@@ -117,8 +130,6 @@
                 var data = sourceNode.$modelValue;
                 var destType = destNode.$element.attr('data-nodetype');
                 var sourceType = sourceNode.$element.attr('data-nodetype');
-
-                console.log(sourceType, destType);
 
                 if (sourceType === 'OutsideRepeat' && destType === 'Step') {
                   return true;
@@ -141,12 +152,12 @@
               <h2>Repeat <input type="textbox" ng-model="step.times" /> times</h2>
               <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat">
                 <li ng-repeat="repeatStep in step.steps" ui-tree-node data-nodetype="InsideRepeat">
-                  <div><span>{{repeatStep.type}}</span> : <select ng-model="repeatStep.type" ng-options="stepType for stepType in stepTypes"></select></div>
+                  <step-editor step="repeatStep"></step-editor>
                 </li>
               </ol>
             </div>
             <div ng-switch-default>
-              <span><span>{{step.type}}</span> <select ng-model="step.type" ng-options="stepType for stepType in stepTypes"></select>
+              <step-editor step="step"></step-editor>
             </div>
           </div>
         </li>
