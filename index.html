@@ -117,7 +117,7 @@
               },
               templateUrl: 'stepEditor.html',
               link: function ($scope, $element) {
-                $scope.stepTypes = ['WarmUp', 'Interval', 'Recovery', 'CoolDown'];
+                $scope.stepTypes = ['Other', 'WarmUp', 'Interval', 'Recovery', 'CoolDown'];
                 $scope.durationTypes = ['Distance', 'Lap'];
                 $scope.targetTypes = ['Pace', 'None'];
               }
@@ -126,14 +126,40 @@
           .controller('intervalDesignerController', ['$scope', function($scope) {
 
             $scope.steps = data.steps;
-            $scope.stepTypes = ['WarmUp', 'Interval', 'Recovery', 'CoolDown'];
+            $scope.stepTypes = ['Other', 'WarmUp', 'Interval', 'Recovery', 'CoolDown'];
+
+            $scope.addStep = function () {
+              var newStep = {
+                type: 'Other',
+                duration: { type: 'Lap' },
+                target: { type: 'None' }
+              }
+              $scope.steps.push(newStep);
+            };
+
+            $scope.addRepeat = function () {
+              var newRepeat = {
+                type: 'Repeat',
+                times: 1,
+                steps: []
+              };
+              $scope.steps.push(newRepeat);
+            };
 
             $scope.options = {
               accept: function(sourceNode, destNode, destIndex) {
+
                 var data = sourceNode.$modelValue;
                 var destType = destNode.$element.attr('data-nodetype');
                 var sourceType = sourceNode.$element.attr('data-nodetype');
 
+                if (destType === 'Repeat' && data.type === 'Repeat') {
+                  return false;
+                } else {
+                  return true;
+                }
+
+                /*
                 if (sourceType === 'OutsideRepeat' && destType === 'Step') {
                   return true;
                 } else if (sourceType === 'InsideRepeat' && destType === 'Repeat') {
@@ -141,19 +167,20 @@
                 } else {
                   return false;
                 }
+                */
               }
             };
           }]);
     </script>
     <h1>Suunto Ambit Intervals App Generator</h1>
 
-    <div ui-tree="options">
-      <ol ui-tree-nodes ng-model="steps" data-nodetype="Step">
+    <div ui-tree="options" data-empty-place-holder-enabled="false">
+      <ol ui-tree-nodes ng-model="steps" data-nodetype="Step" class="angular-ui-tree-nodes">
         <li ng-repeat="step in steps" ui-tree-node data-nodetype="OutsideRepeat">
           <div ng-switch on="step.type">
             <div ng-switch-when="Repeat">
               <h2>Repeat <input type="text" ng-model="step.times" /> times</h2>
-              <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat">
+              <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat" class="angular-ui-tree-nodes">
                 <li ng-repeat="repeatStep in step.steps" ui-tree-node data-nodetype="InsideRepeat">
                   <step-editor step="repeatStep"></step-editor>
                 </li>
@@ -166,6 +193,9 @@
         </li>
       </ol>
     </div>
+
+    <button ng-click="addStep()">Add Step</button>
+    <button ng-click="addRepeat()">Add Repeat</button>
 
    	<pre>{{ steps | json }}</pre>
 
