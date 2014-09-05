@@ -1,0 +1,165 @@
+<html ng-app="AmbitIntervals">
+  <head>
+    <title>Suunto Ambit Intervals App Generator</title>
+    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+
+  </head>
+  <body ng-controller="IntervalDesignerController">
+    <script type="text/javascript">
+      var data = {
+        "steps": [
+          {
+            "type": "WarmUp",
+            "duration": {
+              "type": "Lap"
+            },
+            "target": {
+              "type": "None"
+            }
+          },
+          {
+            "type": "Repeat",
+            "times": 2,
+            "steps": [
+              {
+                "type": "Interval",
+                "duration": {
+                  "type": "Distance",
+                  "value": 1.2
+                },
+                "target": {
+                  "type": "Pace",
+                  "from": 236,
+                  "to": 236
+                }
+              },
+              {
+                "type": "Recovery",
+                "duration": {
+                  "type": "Distance",
+                  "value": 0.6
+                },
+                "target": {
+                  "type": "None"
+                }
+              },
+              {
+                "type": "Interval",
+                "duration": {
+                  "type": "Distance",
+                  "value": 0.8
+                },
+                "target": {
+                  "type": "Pace",
+                  "from": 227,
+                  "to": 227
+                }
+              },
+              {
+                "type": "Recovery",
+                "duration": {
+                  "type": "Distance",
+                  "value": 0.4
+                },
+                "target": {
+                  "type": "None"
+                }
+              },
+              {
+                "type": "Interval",
+                "duration": {
+                  "type": "Distance",
+                  "value": 0.4
+                },
+                "target": {
+                  "type": "Pace",
+                  "from": 227,
+                  "to": 227
+                }
+              },
+              {
+                "type": "Recovery",
+                "duration": {
+                  "type": "Distance",
+                  "value": 0.2
+                },
+                "target": {
+                  "type": "None"
+                }
+              }
+            ]
+          },
+          {
+            "type": "CoolDown",
+            "duration": {
+              "type": "Lap"
+            },
+            "target": {
+              "type": "None"
+            }
+          }
+        ]
+      };
+
+
+      var myAppMobule =
+        angular
+          .module('AmbitIntervals', ['ui.tree'])
+          .controller('IntervalDesignerController', ['$scope', function($scope) {
+
+            $scope.list = [
+              {
+                title: 'Hello World!',
+                items: [{ title: 'Hello Caye Caulker!' }]
+              }
+            ];
+
+            $scope.steps = data.steps;
+
+            $scope.options = {
+              accept: function(sourceNode, destNode, destIndex) {
+                var data = sourceNode.$modelValue;
+                var destType = destNode.$element.attr('data-nodetype');
+                var sourceType = sourceNode.$element.attr('data-nodetype');
+
+                console.log(sourceType, destType);
+
+                if (sourceType === 'OutsideRepeat' && destType === 'Step') {
+                  return true;
+                } else if (sourceType === 'InsideRepeat' && destType === 'Repeat') {
+                  return true;
+                } else {
+                  return false;
+                }
+              }
+            };
+          }]);
+    </script>
+    <h1>Suunto Ambit Intervals App Generator</h1>
+
+    <div ui-tree="options">
+      <ol ui-tree-nodes ng-model="steps" data-nodetype="Step">
+        <li ng-repeat="step in steps" ui-tree-node data-nodetype="OutsideRepeat">
+          <div ng-switch on="step.type">
+            <div ng-switch-when="Repeat">
+              <h2>Repeat {{step.times}} times</h2>
+              <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat">
+                <li ng-repeat="step in step.steps" ui-tree-node data-nodetype="InsideRepeat">
+                  <div><span>Step: {{step.type}}</span></div>
+                </li>
+              </ol>
+            </div>
+            <div ng-switch-default>
+              <span>Step: {{step.type}}</span>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+   	<pre>{{ steps | json }}</pre>
+
+  </body>
+</html>
