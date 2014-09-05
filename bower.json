@@ -1,23 +1,20 @@
 {
   "name": "ambit-intervals",
   "version": "0.0.0",
-  "homepage": "https://github.com/follesoe/suunto-ambit-intervals",
-  "authors": [
-    "Jonas Follesø <jonas@follesoe.no>"
-  ],
-  "description": "Application to generate Suunto Ambit Apps for interval training",
-  "license": "MIT",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
   "dependencies": {
-    "angular": "~1.2.23",
-    "angular-ui-tree": "~2.1.5",
-    "lodash": "~2.4.1"
-  }
+    "angular": "~1.2.0",
+    "json3": "~3.3.1",
+    "es5-shim": "~3.1.0",
+    "angular-resource": "~1.2.0",
+    "angular-cookies": "~1.2.0",
+    "angular-sanitize": "~1.2.0",
+    "angular-touch": "~1.2.0",
+    "angular-route": "~1.2.0",
+    "angular-ui-tree": "~2.1.5"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.0",
+    "angular-scenario": "~1.2.0"
+  },
+  "appPath": "app"
 }

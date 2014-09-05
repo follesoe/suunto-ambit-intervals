@@ -1,0 +1,36 @@
+<h1>Suunto Ambit Intervals App Generator</h1>
+
+<label>
+  Name
+  <input type="text" ng-model="interval.name" />
+</label>
+
+<label>
+  Description
+  <textarea ng-model="interval.description"></textarea>
+</label>
+
+<div ui-tree="options" data-empty-place-holder-enabled="false">
+  <ol ui-tree-nodes ng-model="interval.steps" data-nodetype="Step" class="angular-ui-tree-nodes">
+    <li ng-repeat="step in interval.steps" ui-tree-node data-nodetype="OutsideRepeat">
+      <div ng-switch on="step.type">
+        <div ng-switch-when="Repeat">
+          <h2>Repeat <input type="text" ng-model="step.times" /> times</h2>
+          <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat" class="angular-ui-tree-nodes">
+            <li ng-repeat="repeatStep in step.steps" ui-tree-node data-nodetype="InsideRepeat">
+              <step-editor step="repeatStep"></step-editor>
+            </li>
+          </ol>
+        </div>
+        <div ng-switch-default>
+          <step-editor step="step"></step-editor>
+        </div>
+      </div>
+    </li>
+  </ol>
+</div>
+
+<button ng-click="addStep()">Add Step</button>
+<button ng-click="addRepeat()">Add Repeat</button>
+
+<pre>{{ interval | json }}</pre>
