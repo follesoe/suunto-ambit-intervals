@@ -15,15 +15,19 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.tree'
+    'ui.tree',
+    'LocalStorageModule'
   ])
+  .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
+    localStorageServiceProvider.setPrefix('ambitInterval');
+  }])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .otherwise({
+      .otherwise({ 
         redirectTo: '/'
       });
   });

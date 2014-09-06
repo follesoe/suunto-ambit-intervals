@@ -8,107 +8,35 @@
  * Controller of the ambitIntervalsApp
  */
 angular.module('ambitIntervalsApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, intervalFilesService) {
 
-    var data = {
-      'steps': [
-        {
-          'type': 'WarmUp',
-          'duration': {
-            'type': 'Lap'
-          },
-          'target': {
-            'type': 'None'
-          }
-        },
-        {
-          'type': 'Repeat',
-          'times': 2,
-          'steps': [
-            {
-              'type': 'Interval',
-              'duration': {
-                'type': 'Distance',
-                'value': 1.2
-              },
-              'target': {
-                'type': 'Pace',
-                'from': '04:10',
-                'to': '04:15'
-              }
-            },
-            {
-              'type': 'Recovery',
-              'duration': {
-                'type': 'Distance',
-                'value': 0.6
-              },
-              'target': {
-                'type': 'None'
-              }
-            },
-            {
-              'type': 'Interval',
-              'duration': {
-                'type': 'Distance',
-                'value': 0.8
-              },
-              'target': {
-                'type': 'Pace',
-                'from': '03:45',
-                'to': '03:50'
-              }
-            },
-            {
-              'type': 'Recovery',
-              'duration': {
-                'type': 'Distance',
-                'value': 0.4
-              },
-              'target': {
-                'type': 'None'
-              }
-            },
-            {
-              'type': 'Interval',
-              'duration': {
-                'type': 'Distance',
-                'value': 0.4
-              },
-              'target': {
-                'type': 'Pace',
-                'from': '03:50',
-                'to': '03:55'
-              }
-            },
-            {
-              'type': 'Recovery',
-              'duration': {
-                'type': 'Distance',
-                'value': 0.2
-              },
-              'target': {
-                'type': 'None'
-              }
-            }
-          ]
-        },
-        {
-          'type': 'CoolDown',
-          'duration': {
-            'type': 'Lap'
-          },
-          'target': {
-            'type': 'None'
-          }
-        }
-      ]
+    function createInterval (name) {
+      return {
+        name: name,
+        description: '',
+        steps: []
+      };
+    }
+
+    $scope.interval = null;
+    $scope.intervals = intervalFilesService.getIntervals();
+
+    if ($scope.intervals.length === 0) {
+      var newInterval = createInterval('Interval 1');
+      $scope.intervals.push(newInterval);
+      $scope.interval = newInterval;
+    } else {
+      $scope.interval = $scope.intervals[0];
+    }
+
+    $scope.addNewInterval = function () {
+      var newInterval = createInterval('Interval ' + ($scope.intervals.length + 1));
+      $scope.intervals.push(newInterval);
+      $scope.interval = newInterval;
     };
 
-    $scope.interval = {
-      name: 'New Interval Set',
-      description: '',
-      steps: data.steps
+    $scope.saveIntervals = function () {
+      intervalFilesService.saveIntervals($scope.intervals);
     };
 
     $scope.addStep = function () {

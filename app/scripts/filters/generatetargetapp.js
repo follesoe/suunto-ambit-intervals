@@ -11,6 +11,8 @@
 angular.module('ambitIntervalsApp')
   .filter('generateTargetApp', function (codeGeneratorService) {
     return function (input) {
-      return codeGeneratorService.generateTargetApp(input);
+      if (input) {
+        return codeGeneratorService.generateTargetApp(input);
+      }
     };
   });

@@ -69,17 +69,24 @@ angular.module('ambitIntervalsApp')
       return output;
     };
 
+    var createHeader = function (input) {
+      var output = '/* ' + input.name + ' */\r\n';
+      if (input.description) {
+        output += '/* ' + input.description + ' */\r\n\r\n';
+      } else {
+        output += '\r\n';
+      }
+      return output;
+    };
+
     this.generateDurationApp = function (interval) {
       var input = JSON.parse(JSON.stringify(interval));
       input = flattenRepeats(input);
       input = convertPaceToSeconds(input);
 
       var output = '';
+      output += createHeader(input);
 
-      output += '/* ' + input.name + '*/\r\n';
-      if (input.description) {
-        output += '/* ' + input.description + '*/\r\n';
-      }
       output += '/* Interval set - duration application */\r\n';
       output += '/* Initialize variables */\r\n';
       output += 'if (SUUNTO_DURATION == 0) {\r\n';
@@ -135,6 +142,7 @@ angular.module('ambitIntervalsApp')
       input = convertPaceToSeconds(input);
 
       var output = '';
+      output += createHeader(input);
 
       output += '/* Interval set - target application */\r\n';
       output += '/* Initialize variables */\r\n';
