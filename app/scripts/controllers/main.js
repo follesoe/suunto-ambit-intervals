@@ -1,3 +1,4 @@
+/*global _:false */
 'use strict';
 
 /**
@@ -37,6 +38,16 @@ angular.module('ambitIntervalsApp')
 
     $scope.saveIntervals = function () {
       intervalFilesService.saveIntervals($scope.intervals);
+    };
+
+    $scope.deleteStep = function (step) {
+      if (_.contains($scope.interval.steps, step)) {
+        _.remove($scope.interval.steps, step);
+      } else {
+        _($scope.interval.steps)
+          .where(function (s) { return s.type === 'Repeat'; })
+          .each(function (repeat) { _.remove(repeat.steps, step); });
+      }
     };
 
     $scope.addStep = function () {

@@ -85,3 +85,7 @@ body {
 .three pre {
   flex: 1 0 0;
 }
+
+.angular-ui-tree-placeholder {
+  background-color: red;
+}
