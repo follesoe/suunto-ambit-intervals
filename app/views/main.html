@@ -6,16 +6,18 @@
   <button ng-click="saveIntervals()" class="action">Save intervals</button>
 </div>
 
-<label>
-  Name
-  <input type="text" ng-model="interval.name" />
-</label>
-
-<label>
-  Description
-  <textarea ng-model="interval.description"></textarea>
-</label>
-
+<div class="interval-metadata">
+  <label>
+    Name
+    <input type="text" ng-model="interval.name" />
+  </label>
+</div>
+<div class="interval-metadata">
+  <label>
+    Description
+    <textarea ng-model="interval.description"></textarea>
+  </label>
+</div>
 
 <h2>Create Interval Set</h2>
 <div ui-tree="options" data-empty-place-holder-enabled="false">
@@ -44,8 +46,13 @@
 <button ng-click="addStep()">Add Step</button>
 <button ng-click="addRepeat()">Add Repeat</button>
 
-<div class="three">
-  <pre>{{ interval | json }}</pre>
-  <pre>{{ interval | generateTargetApp }}</pre>
-  <pre>{{ interval | generateDurationApp }}</pre>
+<div class="app-output">
+  <div>
+    <h2>Duration App</h2>
+    <pre>{{ interval | generateDurationApp }}</pre>
+  </div>
+  <div>
+    <h2>Target App</h2>
+    <pre>{{ interval | generateTargetApp }}</pre>
+  </div>
 </div>
