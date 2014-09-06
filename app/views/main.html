@@ -20,11 +20,11 @@
   <ol ui-tree-nodes ng-model="interval.steps" data-nodetype="Step" class="angular-ui-tree-nodes">
     <li ng-repeat="step in interval.steps" ui-tree-node data-nodetype="OutsideRepeat">
       <div ng-switch on="step.type">
-        <div ng-switch-when="Repeat">
-          <h2>
+        <div ng-switch-when="Repeat" class="repeat">
+          <h3>
             Repeat <input type="text" ng-model="step.times" /> times
             <button ng-click="deleteStep(step)">Delete</button>
-          </h2>
+          </h3>
           <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat" class="angular-ui-tree-nodes">
             <li ng-repeat="repeatStep in step.steps" ui-tree-node data-nodetype="InsideRepeat">
               <step-editor step="repeatStep" delete-step="deleteStep"></step-editor>
