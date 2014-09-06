@@ -48,6 +48,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
       },
+      recess: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+        tasks: ['recess:dist']
+      },
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -168,6 +172,22 @@ module.exports = function (grunt) {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
         ignorePath:  /\.\.\//
+      }
+    },
+
+    // LESS linting and compilation
+    recess: {
+      options: {
+        compile: true
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/styles',
+          src: '{,*/}*.less',
+          dest: '.tmp/styles/',
+          ext: '.css'
+        }]
       }
     },
 
@@ -331,12 +351,14 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
+        'recess',
         'copy:styles'
       ],
       test: [
         'copy:styles'
       ],
       dist: [
+        'recess',
         'copy:styles',
         'imagemin',
         'svgmin'
