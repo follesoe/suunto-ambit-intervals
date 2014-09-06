@@ -77,3 +77,11 @@ body {
     border-bottom: 0;
   }
 }
+
+.three {
+  display: flex;
+}
+
+.three pre {
+  flex: 1 0 0;
+}

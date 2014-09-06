@@ -46,9 +46,8 @@ angular.module('ambitIntervalsApp')
     };
 
     var flattenRepeats = function (input) {
-      var output = {
-        steps: []
-      };
+      var output = JSON.parse(JSON.stringify(input));
+      output.steps = [];
 
       for (var i = 0; i < input.steps.length; ++i) {
         if (input.steps[i].type === 'Repeat') {
@@ -70,12 +69,17 @@ angular.module('ambitIntervalsApp')
       return output;
     };
 
-    this.generateDurationApp = function (input) {
+    this.generateDurationApp = function (interval) {
+      var input = JSON.parse(JSON.stringify(interval));
       input = flattenRepeats(input);
       input = convertPaceToSeconds(input);
 
       var output = '';
 
+      output += '/* ' + input.name + '*/\r\n';
+      if (input.description) {
+        output += '/* ' + input.description + '*/\r\n';
+      }
       output += '/* Interval set - duration application */\r\n';
       output += '/* Initialize variables */\r\n';
       output += 'if (SUUNTO_DURATION == 0) {\r\n';
@@ -124,7 +128,9 @@ angular.module('ambitIntervalsApp')
       return output;
     };
 
-    this.generateTargetApp = function (input) {
+    this.generateTargetApp = function (interval) {
+      var input = interval;
+      input = JSON.parse(JSON.stringify(input));
       input = flattenRepeats(input);
       input = convertPaceToSeconds(input);
 
