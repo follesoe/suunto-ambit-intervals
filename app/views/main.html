@@ -1,23 +1,28 @@
 <h1>Suunto Ambit Interval App Generator</h1>
 
 <div>
-  <select ng-model="interval" ng-options="interval as interval.name for interval in intervals"></select>
-  <button ng-click="addNewInterval()">Add new interval</button>
-  <button ng-click="saveIntervals()" class="action">Save intervals</button>
+  <label>
+    Select interval
+    <select ng-model="interval" ng-options="interval as interval.name for interval in intervals"></select>
+  </label>
+  <button ng-click="addNewInterval()">New interval</button>
+  <button ng-click="saveIntervals()" class="action">Save</button>
 </div>
 
-<div class="interval-metadata">
-  <label>
-    Name
-    <input type="text" ng-model="interval.name" />
-  </label>
-</div>
-<div class="interval-metadata">
-  <label>
-    Description
-    <textarea ng-model="interval.description"></textarea>
-  </label>
-</div>
+<section class="interval-metadata">
+  <div class="interval-metadata-line">
+    <label>
+      Name
+      <input type="text" ng-model="interval.name" />
+    </label>
+  </div>
+  <div class="interval-metadata-line">
+    <label>
+      Description
+      <textarea ng-model="interval.description"></textarea>
+    </label>
+  </div>
+</section>
 
 <h2>Create Interval Set</h2>
 <div ui-tree="options" data-empty-place-holder-enabled="false">
@@ -45,6 +50,7 @@
 
 <button ng-click="addStep()">Add Step</button>
 <button ng-click="addRepeat()">Add Repeat</button>
+<button ng-click="saveIntervals()" class="action">Save</button>
 
 <div class="app-output">
   <div>
