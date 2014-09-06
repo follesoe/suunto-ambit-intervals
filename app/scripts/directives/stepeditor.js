@@ -17,7 +17,7 @@ angular.module('ambitIntervalsApp')
       },
       templateUrl: '/views/stepeditortemplate.html',
       link: function ($scope) {
-        $scope.stepTypes = ['Other', 'WarmUp', 'Interval', 'Recovery', 'CoolDown'];
+        $scope.stepTypes = ['Other', 'WarmUp', 'Interval', 'Recovery', 'Rest', 'CoolDown'];
         $scope.durationTypes = ['Distance', 'Lap'];
         $scope.targetTypes = ['Pace', 'None'];
       }
