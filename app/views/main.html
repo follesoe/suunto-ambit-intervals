@@ -22,7 +22,7 @@
       <div ng-switch on="step.type">
         <div ng-switch-when="Repeat" class="repeat">
           <h3>
-            Repeat <input type="text" ng-model="step.times" /> times
+            Repeat <input type="number" min="1" max="20" step="1" ng-model="step.times" /> times
             <button ng-click="deleteStep(step)">Delete</button>
           </h3>
           <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat" class="angular-ui-tree-nodes">
