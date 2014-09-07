@@ -35,7 +35,7 @@ angular
         templateUrl: 'views/howto.html',
         controller: 'HowtoCtrl'
       })
-      .otherwise({ 
+      .otherwise({
         redirectTo: '/'
       });
   });
