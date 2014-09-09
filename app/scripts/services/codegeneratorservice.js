@@ -101,26 +101,26 @@ angular.module('ambitIntervalsApp')
         output += 'if (SUUNTO_LAP_NUMBER == ' + lapNumber + ') {\r\n';
 
         if (step.type === 'WarmUp') {
-          output += '  prefix = \'wu\';\r\n';
-          output += '  postfix = \'m\';\r\n';
+          output += '  prefix = "wu";\r\n';
+          output += '  postfix = "m";\r\n';
           output += '  RESULT = SUUNTO_LAP_DISTANCE*1000;\r\n';
         }
 
         if (step.type === 'Interval' && step.duration.type === 'Distance') {
-          output += '  prefix = \'int\';\r\n';
-          output += '  postfix = \'m\';\r\n';
+          output += '  prefix = "int";\r\n';
+          output += '  postfix = "m";\r\n';
           output += '  RESULT = ' + (step.duration.value*1000) + ' - (SUUNTO_LAP_DISTANCE*1000);\r\n';
         }
 
         if (step.type === 'Recovery' && step.duration.type === 'Distance') {
-          output += '  prefix = \'rec\';\r\n';
-          output += '  postfix = \'m\';\r\n';
+          output += '  prefix = "rec";\r\n';
+          output += '  postfix = "m";\r\n';
           output += '  RESULT = ' + (step.duration.value*1000) + ' - (SUUNTO_LAP_DISTANCE*1000);\r\n';
         }
 
         if (step.type === 'CoolDown') {
-          output += '  prefix = \'cd\';\r\n';
-          output += '  postfix = \'m\';\r\n';
+          output += '  prefix = "cd";\r\n';
+          output += '  postfix = "m";\r\n';
           output += '  RESULT = SUUNTO_LAP_DISTANCE*1000;\r\n';
         }
         output += '}\r\n\r\n';
@@ -164,8 +164,8 @@ angular.module('ambitIntervalsApp')
         output += 'if (SUUNTO_LAP_NUMBER == ' + lapNumber + ') {\r\n';
 
         if (step.target.type === 'None') {
-          output += '  prefix = \'at\';\r\n';
-          output += '  postfix = \'/km\';\r\n';
+          output += '  prefix = "at";\r\n';
+          output += '  postfix = "/km";\r\n';
           output += '  TARGETPACE = ACTUALPACE;\r\n';
           output += '  TARGETSEC = Suunto.mod(TARGETPACE, 60);\r\n';
           output += '  TARGETMIN = (TARGETPACE - TARGETSEC) / 60;\r\n';
@@ -173,8 +173,8 @@ angular.module('ambitIntervalsApp')
         }
 
         if (step.target.type === 'Pace') {
-          output += '  prefix = \'to\';\r\n';
-          output += '  postfix = \'/km\';\r\n';
+          output += '  prefix = "to";\r\n';
+          output += '  postfix = "/km";\r\n';
           output += '  TARGETPACE = ' + step.target.to + ';\r\n';
           output += '  TARGETSEC = Suunto.mod(TARGETPACE, 60);\r\n';
           output += '  TARGETMIN = (TARGETPACE - TARGETSEC) / 60;\r\n';
