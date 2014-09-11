@@ -19,7 +19,7 @@ angular.module('ambitIntervalsApp')
       link: function ($scope) {
         $scope.stepTypes = ['Other', 'WarmUp', 'Interval', 'Recovery', 'Rest', 'CoolDown'];
         $scope.durationTypes = ['Distance', 'Time', 'Lap', 'Calories'];
-        $scope.targetTypes = ['Pace', 'Cadence', 'Speed', 'HR', 'None'];
+        $scope.targetTypes = ['Pace', 'Cadence', 'Speed', 'HR', 'Power', 'None'];
       }
     };
   });

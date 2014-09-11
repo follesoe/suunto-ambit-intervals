@@ -66,5 +66,15 @@
 		<input type="number" step="1" min="33" max="229" ng-model="step.target.to" /> bpm
 	</label>
 
+	<label ng-show="step.target.type == 'Power'">
+		From
+		<input type="number" step="1" min="0" max="500" ng-model="step.target.from" />
+	</label>
+
+	<label ng-show="step.target.type == 'Power'">
+		To
+		<input type="number" step="1" min="0" max="500" ng-model="step.target.to" /> W
+	</label>
+
 	<button ng-click="deleteStep(step)">Delete</button>
 </div>
