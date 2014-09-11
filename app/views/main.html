@@ -4,7 +4,8 @@
     Select interval
     <select ng-model="interval" ng-options="interval as interval.name for interval in intervals"></select>
   </label>
-  <button ng-click="addNewInterval()">New interval</button>
+  <button ng-click="addNewInterval()">New</button>
+  <button ng-click="deleteInterval()">Delete</button>
   <button ng-click="saveIntervals()" class="action">Save</button>
 </div>
 

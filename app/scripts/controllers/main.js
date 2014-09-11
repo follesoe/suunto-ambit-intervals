@@ -19,16 +19,19 @@ angular.module('ambitIntervalsApp')
       };
     }
 
+    function initSelectedInterval () {
+      if ($scope.intervals.length === 0) {
+        var newInterval = createInterval('Interval 1');
+        $scope.intervals.push(newInterval);
+        $scope.interval = newInterval;
+      } else {
+        $scope.interval = $scope.intervals[0];
+      }
+    }
+
     $scope.interval = null;
     $scope.intervals = intervalFilesService.getIntervals();
-
-    if ($scope.intervals.length === 0) {
-      var newInterval = createInterval('Interval 1');
-      $scope.intervals.push(newInterval);
-      $scope.interval = newInterval;
-    } else {
-      $scope.interval = $scope.intervals[0];
-    }
+    initSelectedInterval();
 
     $scope.addNewInterval = function () {
       var newInterval = createInterval('Interval ' + ($scope.intervals.length + 1));
@@ -38,6 +41,16 @@ angular.module('ambitIntervalsApp')
 
     $scope.saveIntervals = function () {
       intervalFilesService.saveIntervals($scope.intervals);
+    };
+
+    $scope.deleteInterval = function () {
+      if (window.confirm('Do you really wan\'t to delete \'' + $scope.interval.name + '\'?')) {
+        intervalFilesService.deleteInterval($scope.interval);
+        var toRemove = $scope.interval;
+        $scope.interval = null;
+        _.remove($scope.intervals, toRemove);
+        initSelectedInterval();
+      }
     };
 
     $scope.deleteStep = function (step) {

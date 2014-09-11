@@ -32,4 +32,8 @@ angular.module('ambitIntervalsApp')
         }
       }
     };
+
+    this.deleteInterval = function (interval) {
+      localStorageService.remove(interval.name);
+    };
   });
