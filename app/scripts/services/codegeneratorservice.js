@@ -29,6 +29,10 @@ angular.module('ambitIntervalsApp')
           step.target.from = convertPace(step.target.from);
           step.target.to = convertPace(step.target.to);
         }
+
+        if (step.duration.type === 'Time') {
+          step.duration.value = convertPace(step.duration.value);
+        }
       }
 
       function loopSteps (steps) {
@@ -104,6 +108,9 @@ angular.module('ambitIntervalsApp')
       if (step.duration.type === 'Distance') {
         output += '  postfix = "m";\r\n';
         output += '  RESULT = ' + (step.duration.value*1000) + ' - (SUUNTO_LAP_DISTANCE*1000);\r\n';
+      } else if (step.duration.type === 'Time') {
+        output += '  postfix = "s";\r\n';
+        output += '  RESULT = ' + (step.duration.value) + ' - SUUNTO_LAP_DURATION;\r\n';
       }
 
       return output;
@@ -134,11 +141,11 @@ angular.module('ambitIntervalsApp')
     };
 
     var createStepCommentForDuration = function (lapNumber, step) {
-      return '/* Lap ' + lapNumber +' is ' + step.type + ' with duration type ' + step.duration.type + ' */\r\n';
+      return '/* Lap ' + lapNumber +' is step type ' + step.type + ' with duration type ' + step.duration.type + ' */\r\n';
     };
 
     var createStepCommentForTarget = function (lapNumber, step) {
-      return '/* Lap ' + lapNumber +' is ' + step.type + ' with target type ' + step.target.type + ' */\r\n';
+      return '/* Lap ' + lapNumber +' is step type ' + step.type + ' with target type ' + step.target.type + ' */\r\n';
     };
 
     var createBody = function (input, commentFunction, stepFunction) {
