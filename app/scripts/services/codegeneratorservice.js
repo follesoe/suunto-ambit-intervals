@@ -126,26 +126,28 @@ angular.module('ambitIntervalsApp')
       return output;
     };
 
+    var createStepBodyVariables = function (step, suuntoVariableName, postfix, formatPace) {
+      var output = '';
+      output += '  ACTUAL = ' + suuntoVariableName + ';\r\n';
+      output += '  FROM = ' + step.target.from + ';\r\n';
+      output += '  TO = ' + step.target.to + ';\r\n';
+      output += '  FORMATPACE = ' + formatPace + ';\r\n';
+      output += '  postfix = "' + postfix + '";\r\n';
+      return output;
+    };
+
     var createStepBodyForTarget = function (step) {
       var output = '';
 
       if (step.target.type === 'None') {
-        output += '  ACTUAL = SUUNTO_PACE * 60;\r\n';
-        output += '  FROM = ACTUAL;\r\n';
-        output += '  TO = ACTUAL;\r\n';
-        output += '  FORMATPACE = 1;\r\n';
-        output += '  postfix = "/km";\r\n';
+        output += createStepBodyVariables(step, 'SUUNTO_PACE * 60', '/km', 1);
       }
 
       if (step.target.type === 'Pace') {
         if (!step.target.to || !step.target.from) {
           throw new Error('Target pace missing for step ' + step.type);
         }
-        output += '  ACTUAL = SUUNTO_PACE * 60;\r\n';
-        output += '  FROM = ' + step.target.from + ';\r\n';
-        output += '  TO = ' + step.target.to + ';\r\n';
-        output += '  FORMATPACE = 1;\r\n';
-        output += '  postfix = "/km";\r\n';
+        output += createStepBodyVariables(step, 'SUUNTO_PACE * 60', '/km', 1);
       }
 
       if (step.target.type === 'Cadence') {
@@ -169,24 +171,14 @@ angular.module('ambitIntervalsApp')
         if (!step.target.to || !step.target.from) {
           throw new Error('Target speed missing for step ' + step.type);
         }
-
-        output += '  ACTUAL = SUUNTO_SPEED;\r\n';
-        output += '  FROM = ' + step.target.from + ';\r\n';
-        output += '  TO = ' + step.target.to + ';\r\n';
-        output += '  FORMATPACE = 0;\r\n';
-        output += '  postfix = "kmt";\r\n';
+        output += createStepBodyVariables(step, 'SUUNTO_SPEED', 'kmt', 0);
       }
 
       if (step.target.type === 'HR') {
         if (!step.target.to || !step.target.from) {
           throw new Error('Target Heart rate missing for step ' + step.type);
         }
-
-        output += '  ACTUAL = SUUNTO_HR;\r\n';
-        output += '  FROM = ' + step.target.from + ';\r\n';
-        output += '  TO = ' + step.target.to + ';\r\n';
-        output += '  FORMATPACE = 0;\r\n';
-        output += '  postfix = "bpm";\r\n';
+        output += createStepBodyVariables(step, 'SUUNTO_HR', 'bpm', 0);
       }
 
       return output;
