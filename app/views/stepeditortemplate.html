@@ -20,12 +20,12 @@
 
 	<label ng-show="step.target.type == 'Pace'" >
 		From
-		<input type="text" ng-model="step.target.from" ng-pattern="/\d\d:\d\d/" /> sec/km
+		<input type="text" ng-model="step.target.from" ng-pattern="/\d\d:\d\d/" placeholder="mm:ss" /> sec/km
 	</label>
 
 	<label ng-show="step.target.type == 'Pace'" >
 		To
-		<input type="text" ng-model="step.target.to" ng-pattern="/\d\d:\d\d/" /> sec/km
+		<input type="text" ng-model="step.target.to" ng-pattern="/\d\d:\d\d/" placeholder="mm:ss" /> sec/km
 	</label>
 
 	<button ng-click="deleteStep(step)">Delete</button>
