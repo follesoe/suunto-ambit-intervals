@@ -165,6 +165,18 @@ angular.module('ambitIntervalsApp')
         output += '  }\r\n';
       }
 
+      if (step.target.type === 'Speed') {
+        if (!step.target.to || !step.target.from) {
+          throw new Error('Target speed missing for step ' + step.type);
+        }
+
+        output += '  ACTUAL = SUUNTO_SPEED;\r\n';
+        output += '  FROM = ' + step.target.from + ';\r\n';
+        output += '  TO = ' + step.target.to + ';\r\n';
+        output += '  FORMATPACE = 0;\r\n';
+        output += '  postfix = "kmt";\r\n';
+      };
+
       return output;
     };
 
