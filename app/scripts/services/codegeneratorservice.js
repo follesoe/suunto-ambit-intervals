@@ -106,9 +106,19 @@ angular.module('ambitIntervalsApp')
       }
 
       if (step.duration.type === 'Distance') {
+        if (!step.duration.value) {
+          throw new Error('Duration distance missing for step of type ' + step.type);
+        }
+
         output += '  postfix = "m";\r\n';
         output += '  RESULT = ' + (step.duration.value*1000) + ' - (SUUNTO_LAP_DISTANCE*1000);\r\n';
-      } else if (step.duration.type === 'Time') {
+      }
+
+      if (step.duration.type === 'Time') {
+        if (!step.duration.value) {
+          throw new Error('Duration time missing for step of type ' + step.type);
+        }
+
         output += '  postfix = "s";\r\n';
         output += '  RESULT = ' + (step.duration.value) + ' - SUUNTO_LAP_DURATION;\r\n';
       }
@@ -129,6 +139,10 @@ angular.module('ambitIntervalsApp')
       }
 
       if (step.target.type === 'Pace') {
+        if (!step.target.to || !step.target.from) {
+          throw new Error('Target pace missing for step of type ' + step.type);
+        }
+
         output += '  prefix = "to";\r\n';
         output += '  postfix = "/km";\r\n';
         output += '  TARGETPACE = ' + step.target.to + ';\r\n';

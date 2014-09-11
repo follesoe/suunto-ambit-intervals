@@ -12,7 +12,11 @@ angular.module('ambitIntervalsApp')
   .filter('generateDurationApp', function (codeGeneratorService) {
     return function (input) {
       if (input) {
-        return codeGeneratorService.generateDurationApp(input);
+        try {
+          return codeGeneratorService.generateDurationApp(input);
+        } catch (error) {
+          return 'Error: ' + error.message;
+        }
       }
     };
   });
