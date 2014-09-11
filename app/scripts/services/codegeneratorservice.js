@@ -223,6 +223,7 @@ angular.module('ambitIntervalsApp')
       output += createVariableInitialization(['ACTUAL', 'TO', 'FROM', 'FORMATPACE', 'TARGET', 'TARGETSEC', 'TARGETMIN', 'RESULT']);
       output += createBody(input, createStepCommentForTarget, createStepBodyForTarget);
 
+      output += '/* Set target value */\r\n';
       output += 'if (ACTUAL > TO) {\r\n';
       output += '  TARGET = TO;\r\n';
       output += '} else if (ACTUAL < FROM) {\r\n';
