@@ -102,7 +102,7 @@ angular.module('ambitIntervalsApp')
 
       if (step.duration.type === 'Lap') {
         output += '  postfix = "m";\r\n';
-        output += '  RESULT = SUUNTO_LAP_DISTANCE*1000;\r\n';
+        output += '  RESULT = SUUNTO_LAP_DISTANCE * 1000;\r\n';
       }
 
       if (step.duration.type === 'Distance') {
@@ -111,7 +111,7 @@ angular.module('ambitIntervalsApp')
         }
 
         output += '  postfix = "m";\r\n';
-        output += '  RESULT = ' + (step.duration.value*1000) + ' - (SUUNTO_LAP_DISTANCE*1000);\r\n';
+        output += '  RESULT = ' + (step.duration.value*1000) + ' - (SUUNTO_LAP_DISTANCE * 1000);\r\n';
       }
 
       if (step.duration.type === 'Time') {
@@ -132,9 +132,10 @@ angular.module('ambitIntervalsApp')
       if (step.target.type === 'None') {
         output += '  prefix = "at";\r\n';
         output += '  postfix = "/km";\r\n';
-        output += '  TARGETPACE = ACTUALPACE;\r\n';
-        output += '  TARGETSEC = Suunto.mod(TARGETPACE, 60);\r\n';
-        output += '  TARGETMIN = (TARGETPACE - TARGETSEC) / 60;\r\n';
+        output += '  ACTUAL = SUUNTO_PACE * 60;\r\n'
+        output += '  TARGET = ACTUAL;\r\n';
+        output += '  TARGETSEC = Suunto.mod(TARGET, 60);\r\n';
+        output += '  TARGETMIN = (TARGET - TARGETSEC) / 60;\r\n';
         output += '  RESULT = TARGETMIN + TARGETSEC/100;\r\n';
       }
 
@@ -142,12 +143,21 @@ angular.module('ambitIntervalsApp')
         if (!step.target.to || !step.target.from) {
           throw new Error('Target pace missing for step of type ' + step.type);
         }
-
-        output += '  prefix = "to";\r\n';
+        output += '  ACTUAL = SUUNTO_PACE * 60;\r\n';
+        output += '  if (ACTUAL > ' + step.target.to + ') {\r\n';
+        output += '    prefix ="up";\r\n';
+        output += '    TARGET = ' + step.target.to + ';\r\n';
+        output += '  } else if (ACTUAL < ' + step.target.from + ') {\r\n';
+        output += '    prefix = "dwn";\r\n';
+        output += '    TARGET = ' + step.target.from + ';\r\n';
+        output += '  } else {\r\n';
+        output += '    prefix = "ok";\r\n';
+        output += '    TARGET = ACTUAL;\r\n';
+        output += '  }\r\n';
         output += '  postfix = "/km";\r\n';
-        output += '  TARGETPACE = ' + step.target.to + ';\r\n';
-        output += '  TARGETSEC = Suunto.mod(TARGETPACE, 60);\r\n';
-        output += '  TARGETMIN = (TARGETPACE - TARGETSEC) / 60;\r\n';
+
+        output += '  TARGETSEC = Suunto.mod(TARGET, 60);\r\n';
+        output += '  TARGETMIN = (TARGET - TARGETSEC) / 60;\r\n';
         output += '  RESULT = TARGETMIN + TARGETSEC/100;\r\n';
       }
 
@@ -206,7 +216,7 @@ angular.module('ambitIntervalsApp')
       output += createVariableInitialization(['RESULT']);
       output += createBody(input, createStepCommentForDuration, createStepBodyForDuration);
 
-      output += '/* Check if duration is reached and use alarm to notify to hit lap button */\r\n';
+      output += '/* Notify if duration is reached */\r\n';
       output += 'if (RESULT < 0) {\r\n';
       output += '  RESULT = 0;\r\n';
       output += '  Suunto.alarmBeep();\r\n';
@@ -222,8 +232,7 @@ angular.module('ambitIntervalsApp')
 
       var output = '';
       output += createHeader(input, 'Target');
-      output += createVariableInitialization(['ACTUALPACE', 'TARGETPACE', 'TARGETSEC', 'TARGETMIN', 'RESULT']);
-      output += 'ACTUALPACE = SUUNTO_PACE*60;\r\n\r\n';
+      output += createVariableInitialization(['ACTUAL', 'TARGET', 'TARGETSEC', 'TARGETMIN', 'RESULT']);
       output += createBody(input, createStepCommentForTarget, createStepBodyForTarget);
       return output;
     };
