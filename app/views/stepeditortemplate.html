@@ -52,5 +52,15 @@
 		<input type="number" step="1" min="0" max="100" ng-model="step.target.to" /> km/h
 	</label>
 
+	<label ng-show="step.target.type == 'HR'">
+		From
+		<input type="number" step="1" min="33" max="229" ng-model="step.target.from" />
+	</label>
+
+	<label ng-show="step.target.type == 'HR'">
+		To
+		<input type="number" step="1" min="33" max="229" ng-model="step.target.to" /> bpm
+	</label>
+
 	<button ng-click="deleteStep(step)">Delete</button>
 </div>

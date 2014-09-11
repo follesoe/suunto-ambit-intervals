@@ -177,6 +177,18 @@ angular.module('ambitIntervalsApp')
         output += '  postfix = "kmt";\r\n';
       };
 
+      if (step.target.type === 'HR') {
+        if (!step.target.to || !step.target.from) {
+          throw new Error('Target Heart rate missing for step ' + step.type);
+        }
+
+        output += '  ACTUAL = SUUNTO_HR;\r\n';
+        output += '  FROM = ' + step.target.from + ';\r\n';
+        output += '  TO = ' + step.target.to + ';\r\n';
+        output += '  FORMATPACE = 0;\r\n';
+        output += '  postfix = "bpm";\r\n';
+      };
+
       return output;
     };
 
