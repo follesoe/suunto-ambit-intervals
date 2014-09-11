@@ -33,6 +33,12 @@ angular.module('ambitIntervalsApp')
       return output;
     };
 
+    var validateDurationVariables = function(step, message) {
+      if (!step.duration.value) {
+        throw new Error(message + ' missing for step ' + step.type);
+      }
+    };
+
     var createStepBodyForDuration = function (step) {
       var output = '';
 
@@ -57,7 +63,7 @@ angular.module('ambitIntervalsApp')
       }
 
       if (step.type === 'Other') {
-        output += '  prefix = "dist";\r\n';
+        output += '  prefix = "othr";\r\n';
       }
 
       if (step.duration.type === 'Lap') {
@@ -66,21 +72,21 @@ angular.module('ambitIntervalsApp')
       }
 
       if (step.duration.type === 'Distance') {
-        if (!step.duration.value) {
-          throw new Error('Duration distance missing for step of type ' + step.type);
-        }
-
+        validateDurationVariables(step, 'Distance');
         output += '  postfix = "m";\r\n';
         output += '  RESULT = ' + (step.duration.value*1000) + ' - (SUUNTO_LAP_DISTANCE * 1000);\r\n';
       }
 
       if (step.duration.type === 'Time') {
-        if (!step.duration.value) {
-          throw new Error('Duration time missing for step ' + step.type);
-        }
-
+        validateDurationVariables(step, 'Time');
         output += '  postfix = "s";\r\n';
         output += '  RESULT = ' + (step.duration.value) + ' - SUUNTO_LAP_DURATION;\r\n';
+      }
+
+      if (step.duration.type === 'Calories') {
+        validateDurationVariables(step, 'Calories');
+        output += '  postfix = "kc";\r\n';
+        output += '  RESULT = ' + (step.duration.value) + ' - SUUNTO_LAP_ENERGY;\r\n';
       }
 
       return output;

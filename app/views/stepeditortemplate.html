@@ -17,6 +17,10 @@
 		<input type="text" ng-pattern="/\d\d:\d\d/" ng-required="true" placeholder="mm:ss" ng-model="step.duration.value" /> sec/km
 	</label>
 
+	<label ng-show="step.duration.type == 'Calories'">
+		<input type="number" step="10" min="0" max="3000" ng-model="step.duration.value" /> kcal
+	</label>
+
 	<label>
 		Target
 		<select ng-model="step.target.type" ng-options="targetType for targetType in targetTypes"></select>
