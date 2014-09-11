@@ -175,7 +175,7 @@ angular.module('ambitIntervalsApp')
         output += '  TO = ' + step.target.to + ';\r\n';
         output += '  FORMATPACE = 0;\r\n';
         output += '  postfix = "kmt";\r\n';
-      };
+      }
 
       if (step.target.type === 'HR') {
         if (!step.target.to || !step.target.from) {
@@ -187,7 +187,7 @@ angular.module('ambitIntervalsApp')
         output += '  TO = ' + step.target.to + ';\r\n';
         output += '  FORMATPACE = 0;\r\n';
         output += '  postfix = "bpm";\r\n';
-      };
+      }
 
       return output;
     };
