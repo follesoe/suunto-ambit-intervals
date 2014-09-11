@@ -116,7 +116,7 @@ angular.module('ambitIntervalsApp')
 
       if (step.duration.type === 'Time') {
         if (!step.duration.value) {
-          throw new Error('Duration time missing for step of type ' + step.type);
+          throw new Error('Duration time missing for step ' + step.type);
         }
 
         output += '  postfix = "s";\r\n';
@@ -130,35 +130,39 @@ angular.module('ambitIntervalsApp')
       var output = '';
 
       if (step.target.type === 'None') {
-        output += '  prefix = "at";\r\n';
+        output += '  ACTUAL = SUUNTO_PACE * 60;\r\n';
+        output += '  FROM = ACTUAL;\r\n';
+        output += '  TO = ACTUAL;\r\n';
+        output += '  FORMATPACE = 1;\r\n';
         output += '  postfix = "/km";\r\n';
-        output += '  ACTUAL = SUUNTO_PACE * 60;\r\n'
-        output += '  TARGET = ACTUAL;\r\n';
-        output += '  TARGETSEC = Suunto.mod(TARGET, 60);\r\n';
-        output += '  TARGETMIN = (TARGET - TARGETSEC) / 60;\r\n';
-        output += '  RESULT = TARGETMIN + TARGETSEC/100;\r\n';
       }
 
       if (step.target.type === 'Pace') {
         if (!step.target.to || !step.target.from) {
-          throw new Error('Target pace missing for step of type ' + step.type);
+          throw new Error('Target pace missing for step ' + step.type);
         }
         output += '  ACTUAL = SUUNTO_PACE * 60;\r\n';
-        output += '  if (ACTUAL > ' + step.target.to + ') {\r\n';
-        output += '    prefix ="up";\r\n';
-        output += '    TARGET = ' + step.target.to + ';\r\n';
-        output += '  } else if (ACTUAL < ' + step.target.from + ') {\r\n';
-        output += '    prefix = "dwn";\r\n';
-        output += '    TARGET = ' + step.target.from + ';\r\n';
-        output += '  } else {\r\n';
-        output += '    prefix = "ok";\r\n';
-        output += '    TARGET = ACTUAL;\r\n';
-        output += '  }\r\n';
+        output += '  FROM = ' + step.target.from + ';\r\n';
+        output += '  TO = ' + step.target.to + ';\r\n';
+        output += '  FORMATPACE = 1;\r\n';
         output += '  postfix = "/km";\r\n';
+      }
 
-        output += '  TARGETSEC = Suunto.mod(TARGET, 60);\r\n';
-        output += '  TARGETMIN = (TARGET - TARGETSEC) / 60;\r\n';
-        output += '  RESULT = TARGETMIN + TARGETSEC/100;\r\n';
+      if (step.target.type === 'Cadence') {
+        if (!step.target.to || !step.target.from) {
+          throw new Error('Target cadence missing for step ' + step.type);
+        }
+        output += '  ACTUAL = SUUNTO_CADENCE;\r\n';
+        output += '  FROM = ' + step.target.from + ';\r\n';
+        output += '  TO = ' + step.target.to + ';\r\n';
+        output += '  FORMATPACE = 0;\r\n\r\n';
+
+        output += '  /* Check for cycling, mountain biking or indoor cycling */\r\n';
+        output += '  if(SUUNTO_ACTIVITY_TYPE == 4 || SUUNTO_ACTIVITY_TYPE == 5 || SUUNTO_ACTIVITY_TYPE == 17) {\r\n';
+        output += '    postfix = "rpm";\r\n';
+        output += '  } else {\r\n';
+        output += '    postfix = "spm";\r\n';
+        output += '  }\r\n';
       }
 
       return output;
@@ -232,8 +236,40 @@ angular.module('ambitIntervalsApp')
 
       var output = '';
       output += createHeader(input, 'Target');
-      output += createVariableInitialization(['ACTUAL', 'TARGET', 'TARGETSEC', 'TARGETMIN', 'RESULT']);
+      output += createVariableInitialization(['ACTUAL', 'TO', 'FROM', 'FORMATPACE', 'TARGET', 'TARGETSEC', 'TARGETMIN', 'RESULT']);
       output += createBody(input, createStepCommentForTarget, createStepBodyForTarget);
+
+      output += 'if (ACTUAL > TO) {\r\n';
+      output += '  TARGET = TO;\r\n';
+      output += '} else if (ACTUAL < FROM) {\r\n';
+      output += '  TARGET = FROM;\r\n';
+      output += '} else {\r\n';
+      output += '  TARGET = ACTUAL;\r\n';
+      output += '}\r\n\r\n';
+
+      output += '/* Check if result should be formatted as pace and lables reversed */\r\n';
+      output += 'if (FORMATPACE == 1) {\r\n';
+      output += '  if (ACTUAL > TO) {\r\n';
+      output += '    prefix ="up";\r\n';
+      output += '  } else if (ACTUAL < FROM) {\r\n';
+      output += '    prefix = "dwn";\r\n';
+      output += '  } else {\r\n';
+      output += '    prefix = "ok";\r\n';
+      output += '  }\r\n\r\n';
+      output += '  TARGETSEC = Suunto.mod(TARGET, 60);\r\n';
+      output += '  TARGETMIN = (TARGET - TARGETSEC) / 60;\r\n';
+      output += '  RESULT = TARGETMIN + TARGETSEC/100;\r\n';
+      output += '} else {\r\n';
+      output += '  if (ACTUAL > TO) {\r\n';
+      output += '    prefix ="dwn";\r\n';
+      output += '  } else if (ACTUAL < FROM) {\r\n';
+      output += '    prefix = "up";\r\n';
+      output += '  } else {\r\n';
+      output += '    prefix = "ok";\r\n';
+      output += '  }\r\n\r\n';
+      output += '  RESULT = TARGET;\r\n';
+      output += '}\r\n';
+
       return output;
     };
   });

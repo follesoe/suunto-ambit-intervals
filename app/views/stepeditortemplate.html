@@ -22,14 +22,24 @@
 		<select ng-model="step.target.type" ng-options="targetType for targetType in targetTypes"></select>
 	</label>
 
-	<label ng-show="step.target.type == 'Pace'" >
+	<label ng-show="step.target.type == 'Pace'">
 		From
 		<input type="text" ng-model="step.target.from" ng-required="true" ng-pattern="/\d\d:\d\d/" placeholder="mm:ss" /> sec/km
 	</label>
 
-	<label ng-show="step.target.type == 'Pace'" >
+	<label ng-show="step.target.type == 'Pace'">
 		To
 		<input type="text" ng-model="step.target.to" ng-required="true" ng-pattern="/\d\d:\d\d/" placeholder="mm:ss" /> sec/km
+	</label>
+
+	<label ng-show="step.target.type == 'Cadence'">
+		From
+		<input type="number" step="1" min="0" max="300" ng-model="step.target.from" /> rpm
+	</label>
+
+	<label ng-show="step.target.type == 'Cadence'">
+		To
+		<input type="number" step="1" min="0" max="300" ng-model="step.target.to" /> rpm
 	</label>
 
 	<button ng-click="deleteStep(step)">Delete</button>
