@@ -92,6 +92,10 @@ angular.module('ambitIntervalsApp')
         output += '  prefix = "rest";\r\n';
       }
 
+      if (step.type === 'Other') {
+        output += '  prefix = "dist";\r\n';
+      }
+
       if (step.duration.type === 'Lap') {
         output += '  postfix = "m";\r\n';
         output += '  RESULT = SUUNTO_LAP_DISTANCE*1000;\r\n';
