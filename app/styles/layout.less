@@ -1,7 +1,111 @@
 @import "variables.less";
 
+/* Space out content a bit */
+body {
+	background-color: @mainBackgroundColor;
+	color: @mainTextColor;
+	margin: 0;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+	border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+	margin-top: 0;
+	margin-bottom: 0;
+	line-height: 40px;
+	padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+	padding-top: 19px;
+	color: #777;
+	border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+	.container {
+		max-width: 730px;
+	}
+}
+.container-narrow > hr {
+	margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+	text-align: center;
+	border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+	font-size: 21px;
+	padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+	margin: 40px 0;
+}
+.marketing p + h4 {
+	margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+	/* Remove the padding we set earlier */
+	.header,
+	.marketing,
+	.footer {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	/* Space out the masthead */
+	.header {
+		margin-bottom: 30px;
+	}
+	/* Remove the bottom border on the jumbotron for visual effect */
+	.jumbotron {
+		border-bottom: 0;
+	}
+}
+
+.app-output {
+	margin-top: 16px;
+	display: flex;
+}
+
+.three pre {
+	flex: 1 0 0;
+}
+
+section {
+	margin: 0 24px 0 24px;
+	padding: 24px;
+	box-shadow: 1px 1px 8px rgba(0,0,0,0.35);
+}
+
+section.light {
+	background-color: @thirdBackgroundColor;
+}
+
 nav {
+	background-color: @secondBackgroundColor;
+	box-shadow: 1px 1px 16px rgba(0,0,0,0.35);
+
 	ul {
+		margin: 0 24px 0 24px;
 		padding: 0;
 	}
 
@@ -11,7 +115,7 @@ nav {
 		margin: 0;
 	}
 
-	a {
+	a.menu {
 		text-transform: uppercase;
 		font-family: 'Roboto Condensed', sans-serif;
 		font-weight: 200;
@@ -23,7 +127,7 @@ nav {
 
 	a.active {
 		color: @mainTextColor;
-		background-color: #2b2b2b;
+		background-color: @thirdBackgroundColor;
 	}
 
 	a,
@@ -31,4 +135,8 @@ nav {
 	a:visited {
 		text-decoration: none;
 	}
+}
+
+figure {
+	margin: 0;
 }

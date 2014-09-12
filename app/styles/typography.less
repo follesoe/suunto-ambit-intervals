@@ -1,6 +1,8 @@
+@import "variables.less";
+
 body {
 	font-family: 'Lucida Grande', Arial, Tahoma, Verdana;
-	font-size: 13px;
+	font-size: 15px;
 }
 
 h1, h2, h3, h4, h5, h6, label {
@@ -9,10 +11,29 @@ h1, h2, h3, h4, h5, h6, label {
 	font-weight: 200;
 }
 
-label {
+label, h3 {
+	font-size: 13px;
 	letter-spacing: 0.5px;
+}
+
+a, a:visited {
+	color: @linkColor;
+	text-decoration: none;
 }
 
 h3 {
 	margin: 0;
+}
+
+p {
+	line-height: 1.4;
+}
+
+li {
+	margin: 8px 0 8px 0;
+}
+
+figcaption {
+	font-style: italic;
+	font-size: 13px;
 }
