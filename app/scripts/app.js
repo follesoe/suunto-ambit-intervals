@@ -35,6 +35,10 @@ angular
         templateUrl: 'views/howto.html',
         controller: 'HowtoCtrl'
       })
+      .when('/feedback', {
+        templateUrl: 'views/feedback.html',
+        controller: 'FeedbackCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
