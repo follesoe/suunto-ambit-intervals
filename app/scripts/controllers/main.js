@@ -61,6 +61,13 @@ angular.module('ambitIntervalsApp')
       $scope.interval = newInterval;
     };
 
+    $scope.duplicateInterval = function () {
+      var copy = _.cloneDeep($scope.interval);
+      copy.name = copy.name + ' copy';
+      $scope.intervals.push(copy);
+      $scope.interval = copy;
+    };
+
     $scope.deleteInterval = function () {
       if (window.confirm('Do you really wan\'t to delete \'' + $scope.interval.name + '\'?')) {
         intervalFilesService.deleteInterval($scope.interval);

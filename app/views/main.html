@@ -5,6 +5,7 @@
       <select ng-model="interval" ng-options="interval as interval.name for interval in intervals"></select>
     </label>
     <button ng-click="addNewInterval()" class="action">New</button>
+    <button ng-click="duplicateInterval()">Duplicate</button>
     <button ng-click="deleteInterval()">Delete</button>
   </div>
 
