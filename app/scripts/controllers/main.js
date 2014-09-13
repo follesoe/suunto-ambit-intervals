@@ -19,6 +19,14 @@ angular.module('ambitIntervalsApp')
       };
     }
 
+    function createStep () {
+      return {
+        type: 'Other',
+        duration: { type: 'Lap' },
+        target: { type: 'None' }
+      };
+    }
+
     function initSelectedInterval () {
       if ($scope.intervals.length === 0) {
         var newInterval = createInterval('Interval 1');
@@ -63,14 +71,12 @@ angular.module('ambitIntervalsApp')
       }
     };
 
-    $scope.addStep = function () {
-      var newStep = {
-        type: 'Other',
-        duration: { type: 'Lap' },
-        target: { type: 'None' }
-      };
+    $scope.addStepTo = function (step) {
+      step.steps.push(createStep());
+    };
 
-      $scope.interval.steps.push(newStep);
+    $scope.addStep = function () {
+      $scope.interval.steps.push(createStep());
     };
 
     $scope.addRepeat = function () {
