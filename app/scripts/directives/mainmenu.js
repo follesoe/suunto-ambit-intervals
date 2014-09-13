@@ -9,7 +9,7 @@
 angular.module('ambitIntervalsApp')
   .directive('mainmenu', function ($location) {
     return {
-      templateUrl: '/views/mainmenu.html',
+      templateUrl: 'views/mainmenu.html',
       restrict: 'E',
       replace: true,
       scope: '@',

@@ -20,7 +20,7 @@ angular.module('ambitIntervalsApp')
     return {
       restrict: 'E',
       scope: '@',
-      templateUrl: '/views/appoutput.html',
+      templateUrl: 'views/appoutput.html',
       link: function postLink($scope, element) {
 
         $scope.selectDurationApp = function () {

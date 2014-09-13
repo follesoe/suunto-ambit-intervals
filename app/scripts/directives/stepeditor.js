@@ -15,7 +15,7 @@ angular.module('ambitIntervalsApp')
         step: '=',
         deleteStep: '='
       },
-      templateUrl: '/views/stepeditortemplate.html',
+      templateUrl: 'views/stepeditortemplate.html',
       link: function ($scope) {
         $scope.stepTypes = ['Other', 'WarmUp', 'Interval', 'Recovery', 'Rest', 'CoolDown'];
         $scope.durationTypes = ['Distance', 'Time', 'Lap', 'Calories'];
