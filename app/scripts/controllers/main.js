@@ -41,14 +41,14 @@ angular.module('ambitIntervalsApp')
     $scope.intervals = intervalFilesService.getIntervals();
     initSelectedInterval();
 
+    $scope.$watch('interval', function (newValue) {
+      intervalFilesService.saveInterval(newValue);
+    }, true);
+
     $scope.addNewInterval = function () {
       var newInterval = createInterval('Interval ' + ($scope.intervals.length + 1));
       $scope.intervals.push(newInterval);
       $scope.interval = newInterval;
-    };
-
-    $scope.saveIntervals = function () {
-      intervalFilesService.saveIntervals($scope.intervals);
     };
 
     $scope.deleteInterval = function () {

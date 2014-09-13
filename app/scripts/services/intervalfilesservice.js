@@ -24,13 +24,9 @@ angular.module('ambitIntervalsApp')
       return localStorageService.get(name);
     };
 
-    this.saveIntervals = function (intervals) {
-      if (intervals) {
-        localStorageService.clearAll();
-        for (var i = 0; i < intervals.length; ++i) {
-          localStorageService.set(intervals[i].name, JSON.stringify(intervals[i]));
-        }
-      }
+    this.saveInterval = function (interval) {
+      localStorageService.remove(interval.name);
+      localStorageService.set(interval.name, interval);
     };
 
     this.deleteInterval = function (interval) {

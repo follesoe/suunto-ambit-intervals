@@ -4,9 +4,8 @@
       Select interval
       <select ng-model="interval" ng-options="interval as interval.name for interval in intervals"></select>
     </label>
-    <button ng-click="addNewInterval()">New</button>
+    <button ng-click="addNewInterval()" class="action">New</button>
     <button ng-click="deleteInterval()">Delete</button>
-    <button ng-click="saveIntervals()" class="action">Save</button>
   </div>
 
   <div class="interval-metadata">
@@ -31,7 +30,7 @@
           <div ng-switch-when="Repeat" class="repeat">
             <h3>
               Repeat <input type="number" min="1" max="20" step="1" ng-model="step.times" /> times
-              <button ng-click="addStepTo(step)">Add Step</button>
+              <button ng-click="addStepTo(step)" class="action">Add Step</button>
               <button ng-click="deleteStep(step)">Delete</button>
             </h3>
             <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat" class="angular-ui-tree-nodes">
@@ -49,9 +48,8 @@
   </div>
 
 
-  <button ng-click="addStep()">Add Step</button>
-  <button ng-click="addRepeat()">Add Repeat</button>
-  <button ng-click="saveIntervals()" class="action">Save</button>
+  <button ng-click="addStep()" class="action">Add Step</button>
+  <button ng-click="addRepeat()" class="action">Add Repeat</button>
 
 </section>
 
