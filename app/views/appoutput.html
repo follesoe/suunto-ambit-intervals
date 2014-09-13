@@ -3,14 +3,20 @@
 		<div>
 			<div class="code-heading">
 				<h2>Duration App</h2>
-				<button class="action">Select</button>
+				<button
+					class="action"
+					ng-click="selectDurationApp()"
+					title="Click to select text, then Cmd+C or Ctrl+C to copy">Select</button>
 			</div>
 			<pre id="durationApp">{{ interval | generateDurationApp }}</pre>
 		</div>
 		<div>
 			<div class="code-heading">
 				<h2>Target App</h2>
-				<button class="action">Select</button>
+				<button
+					class="action"
+					ng-click="selectTargetApp()"
+					title="Click to select text, then Cmd+C or Ctrl+C to copy">Select</button>
 			</div>
 			<pre id="intervalApp">{{ interval | generateTargetApp }}</pre>
 		</div>
