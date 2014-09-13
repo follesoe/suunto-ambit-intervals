@@ -86,6 +86,10 @@ body {
 	display: flex;
 }
 
+.app-output > div {
+	flex: 1 0 0;
+}
+
 .three pre {
 	flex: 1 0 0;
 }
@@ -148,8 +152,16 @@ figure {
 .code-heading {
 	display: flex;
 	align-items: center;
-	
+
 	h2 {
 		margin-right: 24px;
 	}
+}
+
+pre {
+	padding: 12px;
+	margin: 6px;
+	border: 2px dashed #808080;
+	overflow: scroll;
+	max-height: 600px;
 }
