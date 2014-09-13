@@ -37,6 +37,16 @@ angular.module('ambitIntervalsApp')
       }
     }
 
+    function removeStepFrom (from, step) {
+      if (step.type === 'Repeat' && step.steps.length > 2) {
+        if (window.confirm('Do you really wan\'t to delete Repeat with ' + step.steps.length + ' steps?')) {
+          _.remove(from, step);
+        }
+      } else {
+        _.remove(from, step);
+      }
+    }
+
     $scope.interval = null;
     $scope.intervals = intervalFilesService.getIntervals();
     initSelectedInterval();
@@ -63,11 +73,11 @@ angular.module('ambitIntervalsApp')
 
     $scope.deleteStep = function (step) {
       if (_.contains($scope.interval.steps, step)) {
-        _.remove($scope.interval.steps, step);
+        removeStepFrom($scope.interval.steps, step);
       } else {
         _($scope.interval.steps)
           .where(function (s) { return s.type === 'Repeat'; })
-          .each(function (repeat) { _.remove(repeat.steps, step); });
+          .each(function (repeat) { removeStepFrom(repeat.steps, step); });
       }
     };
 
