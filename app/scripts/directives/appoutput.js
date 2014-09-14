@@ -23,11 +23,19 @@ angular.module('ambitIntervalsApp')
       templateUrl: 'views/appoutput.html',
       link: function postLink($scope, element) {
 
+        $scope.showDurationHelp = false;
+        $scope.showTargetHelp = false;
+        $scope.copyHelpText = 'Now press CMD+C to copy';
+
         $scope.selectDurationApp = function () {
+          $scope.showDurationHelp = true;
+          $scope.showTargetHelp = false;
           selectNode(element.find('pre')[0]);
         };
 
         $scope.selectTargetApp = function () {
+          $scope.showTargetHelp = true;
+          $scope.showDurationHelp = false;
           selectNode(element.find('pre')[1]);
         };
       }
