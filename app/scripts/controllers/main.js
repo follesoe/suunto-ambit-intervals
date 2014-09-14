@@ -47,13 +47,42 @@ angular.module('ambitIntervalsApp')
       }
     }
 
+    $scope.showImportExport = (window.webkitURL !== null);
+    $scope.showFilePicker = false;
     $scope.interval = null;
     $scope.intervals = intervalFilesService.getIntervals();
+    $scope.importFile = '';
     initSelectedInterval();
 
     $scope.$watch('interval', function (newValue) {
       intervalFilesService.saveInterval(newValue);
     }, true);
+
+    $scope.$watch('importFile', function (newValue) {
+      if (newValue && newValue.length > 0) {
+        var importedInterval = JSON.parse(newValue);
+        $scope.intervals.push(importedInterval);
+        $scope.interval = importedInterval;
+        $scope.showFilePicker = false;
+      }
+    });
+
+    $scope.showLoadInterval = function () {
+      $scope.showFilePicker = true;
+    };
+
+    $scope.exportInterval = function () {
+      var textFileAsBlob = new Blob([angular.toJson($scope.interval, true)], {type:'text/plain'});
+      var downloadLink = document.createElement('a');
+      downloadLink.download = $scope.interval.name + '.txt';
+      downloadLink.innerHTML = 'Download File';
+
+      if (window.webkitURL !== null) {
+    		// Chrome allows the link to be clicked without actually adding it to the DOM.
+    		downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    	}
+      downloadLink.click();
+    };
 
     $scope.addNewInterval = function () {
       var newInterval = createInterval('Interval ' + ($scope.intervals.length + 1));
