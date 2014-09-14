@@ -13,6 +13,7 @@
     <button ng-click="exportInterval()" ng-show="showImportExport == true">Export</button>
     <button ng-click="showLoadInterval()" ng-show="showImportExport == true">Import</button>
     <input type="file" id="fileToLoad" fileread="importFile" ng-show="showFilePicker == true" />
+    <button ng-click="hideLoadInterval()" ng-show="showImportExport == true && showFilePicker == true">Cancel</button>
   </div>
 
   <div class="interval-metadata">

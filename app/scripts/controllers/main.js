@@ -72,6 +72,10 @@ angular.module('ambitIntervalsApp')
       $scope.showFilePicker = true;
     };
 
+    $scope.hideLoadInterval = function () {
+      $scope.showFilePicker = false;
+    };
+
     $scope.exportInterval = function () {
       var textFileAsBlob = new Blob([angular.toJson($scope.interval, true)], {type:'text/plain'});
       var downloadLink = document.createElement('a');
