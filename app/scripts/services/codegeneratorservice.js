@@ -89,6 +89,12 @@ angular.module('ambitIntervalsApp')
         output += '  RESULT = ' + (step.duration.value) + ' - SUUNTO_LAP_ENERGY;\r\n';
       }
 
+      if (step.duration.type === 'HR') {
+        validateDurationVariables(step, 'HR');
+        output += '  postfix = "hr";\r\n';
+        output += '  RESULT = ' + (step.duration.value) + ' - SUUNTO_HR;\r\n';
+      }
+
       return output;
     };
 

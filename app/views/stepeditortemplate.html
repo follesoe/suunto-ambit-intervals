@@ -21,6 +21,10 @@
 		<input type="number" step="10" min="0" max="3000" ng-required="true" ng-model="step.duration.value" /> kcal
 	</label>
 
+	<label ng-show="step.duration.type == 'HR'">
+		<input type="number" step="10" min="33" max="229" ng-required="true" ng-model="step.duration.value" /> bpm
+	</label>
+
 	<label>
 		Target
 		<select ng-model="step.target.type" ng-options="targetType for targetType in targetTypes"></select>

@@ -40,7 +40,7 @@
               <button ng-click="addStepTo(step)" class="action">Add Step</button>
               <button ng-click="deleteStep(step)">Delete</button>
             </h3>
-            <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat" class="angular-ui-tree-nodes">
+            <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat">
               <li ng-repeat="repeatStep in step.steps" ui-tree-node data-nodetype="InsideRepeat">
                 <step-editor step="repeatStep" delete-step="deleteStep"></step-editor>
               </li>
