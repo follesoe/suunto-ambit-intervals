@@ -19,7 +19,7 @@ angular
     'LocalStorageModule'
   ])
   .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
-    localStorageServiceProvider.setPrefix('ambitInterval');
+    localStorageServiceProvider.setPrefix('ambitintervals');
   }])
   .config(function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('!');

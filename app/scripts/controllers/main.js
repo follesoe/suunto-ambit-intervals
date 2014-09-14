@@ -9,11 +9,12 @@
  * Controller of the ambitIntervalsApp
  */
 angular.module('ambitIntervalsApp')
-  .controller('MainCtrl', function ($scope, intervalFilesService) {
+  .controller('MainCtrl', function ($scope, intervalFilesService, idgenerator) {
 
     function createInterval (name) {
       return {
         name: name,
+        id: idgenerator.getId(),
         description: '',
         steps: []
       };
@@ -93,6 +94,7 @@ angular.module('ambitIntervalsApp')
     $scope.duplicateInterval = function () {
       var copy = _.cloneDeep($scope.interval);
       copy.name = copy.name + ' copy';
+      copy.id = idgenerator.getId();
       $scope.intervals.push(copy);
       $scope.interval = copy;
     };
