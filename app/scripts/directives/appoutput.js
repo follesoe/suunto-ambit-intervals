@@ -25,7 +25,7 @@ angular.module('ambitIntervalsApp')
 
         $scope.showDurationHelp = false;
         $scope.showTargetHelp = false;
-        $scope.copyHelpText = 'Now press CMD+C to copy';
+        $scope.copyHelpText = (window.navigator.platform === 'MacIntel') ? 'Now press CMD+C to copy' : 'Now press Ctrl+C to copy';
 
         $scope.selectDurationApp = function () {
           $scope.showDurationHelp = true;
