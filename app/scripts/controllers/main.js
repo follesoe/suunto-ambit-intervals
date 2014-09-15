@@ -16,6 +16,8 @@ angular.module('ambitIntervalsApp')
         name: name,
         id: idgenerator.getId(),
         description: '',
+        defaultDurationType: 'Distance',
+        defaultTargetType: 'Pace',
         steps: []
       };
     }
@@ -53,6 +55,9 @@ angular.module('ambitIntervalsApp')
     $scope.interval = null;
     $scope.intervals = intervalFilesService.getIntervals();
     $scope.importFile = '';
+    $scope.durationTypes = ['Distance', 'Time', 'Calories', 'HR'];
+    $scope.targetTypes = ['Pace', 'Cadence', 'Speed', 'HR', 'Power'];
+
     $scope.durationAndDistance = {
       duration : 0,
       distance: 0

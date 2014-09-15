@@ -39,7 +39,7 @@ angular.module('ambitIntervalsApp')
       }
     };
 
-    var createStepBodyForDuration = function (step) {
+    var createStepBodyForDuration = function (step, interval) {
       var output = '';
 
       if (step.type === 'WarmUp') {
@@ -67,8 +67,19 @@ angular.module('ambitIntervalsApp')
       }
 
       if (step.duration.type === 'Lap') {
-        output += '  postfix = "m";\r\n';
-        output += '  RESULT = SUUNTO_LAP_DISTANCE * 1000;\r\n';
+        if (interval.defaultDurationType === 'Distance') {
+          output += '  postfix = "m";\r\n';
+          output += '  RESULT = SUUNTO_LAP_DISTANCE * 1000;\r\n';
+        } else if (interval.defaultDurationType === 'Time') {
+          output += '  postfix = "s";\r\n';
+          output += '  RESULT = SUUNTO_LAP_DURATION;\r\n';
+        } else if (interval.defaultDurationType === 'Calories') {
+          output += '  postfix = "kc";\r\n';
+          output += '  RESULT = SUUNTO_LAP_ENERGY;\r\n';
+        } else {
+          output += '  postfix = "hr";\r\n';
+          output += '  RESULT = SUUNTO_HR;\r\n';
+        }
       }
 
       if (step.duration.type === 'Distance') {
@@ -98,13 +109,44 @@ angular.module('ambitIntervalsApp')
       return output;
     };
 
+    var createCadencePostfix = function () {
+      var output = '\r\n';
+      output += '  /* Check for cycling, mountain biking or indoor cycling */\r\n';
+      output += '  if(SUUNTO_ACTIVITY_TYPE == 4 || SUUNTO_ACTIVITY_TYPE == 5 || SUUNTO_ACTIVITY_TYPE == 17) {\r\n';
+      output += '    postfix = "rpm";\r\n';
+      output += '  } else {\r\n';
+      output += '    postfix = "spm";\r\n';
+      output += '  }\r\n';
+      return output;
+    };
+
     var createStepBodyVariables = function (step, suuntoVariableName, postfix, formatPace) {
       var output = '';
       output += '  ACTUAL = ' + suuntoVariableName + ';\r\n';
       output += '  FROM = ' + step.target.from + ';\r\n';
       output += '  TO = ' + step.target.to + ';\r\n';
       output += '  FORMATPACE = ' + formatPace + ';\r\n';
-      output += '  postfix = "' + postfix + '";\r\n';
+
+      if (suuntoVariableName === 'SUUNTO_CADENCE') {
+        output += createCadencePostfix();
+      } else {
+        output += '  postfix = "' + postfix + '";\r\n';
+      }
+      return output;
+    };
+
+    var createNoTargetStepBodyVariables = function (suuntoVariableName, postfix, formatPace) {
+      var output = '';
+      output += '  ACTUAL = ' + suuntoVariableName + ';\r\n';
+      output += '  FROM = ACTUAL;\r\n';
+      output += '  TO = ACTUAL;\r\n';
+      output += '  FORMATPACE = ' + formatPace + ';\r\n';
+
+      if (suuntoVariableName === 'SUUNTO_CADENCE') {
+        output += createCadencePostfix();
+      } else {
+        output += '  postfix = "' + postfix + '";\r\n';
+      }
       return output;
     };
 
@@ -114,7 +156,7 @@ angular.module('ambitIntervalsApp')
       }
     };
 
-    var createStepBodyForTarget = function (step) {
+    var createStepBodyForTarget = function (step, interval) {
       var output = '';
 
       if (step.target.type === 'Pace') {
@@ -137,27 +179,23 @@ angular.module('ambitIntervalsApp')
         output += createStepBodyVariables(step, 'SUUNTO_BIKE_POWER', 'W', 0);
       }
 
-      if (step.target.type === 'None') {
-        output += '  ACTUAL = SUUNTO_PACE * 60;\r\n';
-        output += '  FROM = ACTUAL;\r\n';
-        output += '  TO = ACTUAL;\r\n';
-        output += '  FORMATPACE = 1;\r\n';
-        output += '  postfix = "/km";\r\n';
-      }
-
       if (step.target.type === 'Cadence') {
         validateTargetVariables(step, 'Target cadence');
-        output += '  ACTUAL = SUUNTO_CADENCE;\r\n';
-        output += '  FROM = ' + step.target.from + ';\r\n';
-        output += '  TO = ' + step.target.to + ';\r\n';
-        output += '  FORMATPACE = 0;\r\n\r\n';
+        output += createStepBodyVariables(step, 'SUUNTO_CADENCE', '', 0);
+      }
 
-        output += '  /* Check for cycling, mountain biking or indoor cycling */\r\n';
-        output += '  if(SUUNTO_ACTIVITY_TYPE == 4 || SUUNTO_ACTIVITY_TYPE == 5 || SUUNTO_ACTIVITY_TYPE == 17) {\r\n';
-        output += '    postfix = "rpm";\r\n';
-        output += '  } else {\r\n';
-        output += '    postfix = "spm";\r\n';
-        output += '  }\r\n';
+      if (step.target.type === 'None') {
+        if (interval.defaultTargetType === 'Pace') {
+          output += createNoTargetStepBodyVariables('SUUNTO_PACE * 60', '/km', 1);
+        } else if (interval.defaultTargetType === 'Speed') {
+          output += createNoTargetStepBodyVariables('SUUNTO_SPEED', 'kmt', 0);
+        } else if (interval.defaultTargetType === 'HR') {
+          output += createNoTargetStepBodyVariables('SUUNTO_HR', 'bpm', 0);
+        } else if (interval.defaultTargetType === 'Power') {
+          output += createNoTargetStepBodyVariables('SUUNTO_BIKE_POWER', 'W', 0);
+        } else if (interval.defaultTargetType === 'Cadence') {
+          output += createNoTargetStepBodyVariables('SUUNTO_CADENCE', '', 0);
+        }
       }
 
       return output;
@@ -191,14 +229,14 @@ angular.module('ambitIntervalsApp')
 
             output += commentFunction(repeatLapNumbers.join(', '), repeatStep);
             output += 'if (' + ifCheck.join(' || ') + ') {\r\n';
-            output += stepFunction(repeatStep);
+            output += stepFunction(repeatStep, input);
             output += '}\r\n\r\n';
           }
           lapNumber += (step.times * step.steps.length) - 1;
         } else {
           output += commentFunction(lapNumber, step);
           output += 'if (SUUNTO_LAP_NUMBER == ' + lapNumber + ') {\r\n';
-          output += stepFunction(step);
+          output += stepFunction(step, input);
           output += '}\r\n\r\n';
         }
       }

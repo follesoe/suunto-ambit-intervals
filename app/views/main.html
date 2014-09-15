@@ -17,16 +17,30 @@
   </div>
 
   <div class="interval-metadata">
+
     <div class="interval-metadata-line">
       <label>
         Name
         <input type="text" ng-model="interval.name" />
       </label>
     </div>
+
     <div class="interval-metadata-line">
       <label>
         Description
         <textarea ng-model="interval.description"></textarea>
+      </label>
+    </div>
+
+    <div class="interval-metadata-line">
+      <label>
+        Display <select ng-model="interval.defaultDurationType" ng-options="durationType for durationType in durationTypes"></select> when duration is lap
+      </label>
+    </div>
+
+    <div class="interval-metadata-line">
+      <label>
+        Display <select ng-model="interval.defaultTargetType" ng-options="targetType for targetType in targetTypes"></select> when target is none
       </label>
     </div>
 
