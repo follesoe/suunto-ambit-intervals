@@ -9,7 +9,7 @@
  * Controller of the ambitIntervalsApp
  */
 angular.module('ambitIntervalsApp')
-  .controller('MainCtrl', function ($scope, intervalFilesService, idgenerator) {
+  .controller('MainCtrl', function ($scope, intervalFilesService, idgenerator, calculatorservice) {
 
     function createInterval (name) {
       return {
@@ -53,10 +53,16 @@ angular.module('ambitIntervalsApp')
     $scope.interval = null;
     $scope.intervals = intervalFilesService.getIntervals();
     $scope.importFile = '';
+    $scope.durationAndDistance = {
+      duration : 0,
+      distance: 0
+    };
+
     initSelectedInterval();
 
     $scope.$watch('interval', function (newValue) {
       intervalFilesService.saveInterval(newValue);
+      $scope.durationAndDistance = calculatorservice.calculateInterval(newValue);
     }, true);
 
     $scope.$watch('importFile', function (newValue) {

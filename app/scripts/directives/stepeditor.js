@@ -13,7 +13,8 @@ angular.module('ambitIntervalsApp')
       replace: true,
       scope: {
         step: '=',
-        deleteStep: '='
+        deleteStep: '=',
+        repeatTimes: '='
       },
       templateUrl: 'views/stepeditortemplate.html',
       link: function ($scope) {

@@ -29,6 +29,18 @@
         <textarea ng-model="interval.description"></textarea>
       </label>
     </div>
+
+    <div id="durationAndDistance">
+      <div class="icon-line">
+        <img class="icon" src="images/movescount-distance-icon.png" alt="Estimated distance {{durationAndDistance.distance}}" />
+        <span>{{durationAndDistance.distance}} km</span>
+      </div>
+      <div class="icon-line">
+        <img class="icon" src="images/movescount-duration-icon.png" alt="Estimated duration {{durationAndDistance.duration}}" />
+        <span>{{durationAndDistance.duration | sectopace}} h</span>
+      </div>
+    </div>
+
   </div>
 
   <div ui-tree="options" data-empty-place-holder-enabled="false">
@@ -43,12 +55,12 @@
             </h3>
             <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat">
               <li ng-repeat="repeatStep in step.steps" ui-tree-node data-nodetype="InsideRepeat">
-                <step-editor step="repeatStep" delete-step="deleteStep"></step-editor>
+                <step-editor step="repeatStep" delete-step="deleteStep" repeat-times="step.times"></step-editor>
               </li>
             </ol>
           </div>
           <div ng-switch-default>
-            <step-editor step="step" delete-step="deleteStep"></step-editor>
+            <step-editor step="step" delete-step="deleteStep" repeat-times="1"></step-editor>
           </div>
         </div>
       </li>

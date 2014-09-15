@@ -9,20 +9,22 @@
  */
 angular.module('ambitIntervalsApp')
   .service('preprocessor', function preprocessor() {
-    this.convertPaceToSeconds = function (input) {
-      var regex = /(\d\d):(\d\d)/;
+    var regex = /(\d\d):(\d\d)/;
 
-      function convertPace (pace) {
-        var match = regex.exec(pace);
-        if (match && match.length > 1) {
-          var min = Number(match[1]);
-          var sec = Number(match[2]);
-          return (min*60 + sec).toString();
-        } else {
-          return pace;
-        }
+    function convertPace (pace) {
+      var match = regex.exec(pace);
+      if (match && match.length > 1) {
+        var min = Number(match[1]);
+        var sec = Number(match[2]);
+        return (min*60 + sec).toString();
+      } else {
+        return pace;
       }
+    }
 
+    this.convertPace = convertPace;
+
+    this.convertPaceToSeconds = function (input) {
       function convertStep (step) {
         if (step.target.type === 'Pace') {
           step.target.from = convertPace(step.target.from);
