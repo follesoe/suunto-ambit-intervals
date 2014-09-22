@@ -253,10 +253,13 @@ angular.module('ambitIntervalsApp')
       output += createVariableInitialization(['RESULT']);
       output += createBody(input, createStepCommentForDuration, createStepBodyForDuration);
 
-      output += '/* Notify if duration is reached */\r\n';
+      output += '/* Check if duration is reached */\r\n';
       output += 'if (RESULT < 0) {\r\n';
       output += '  RESULT = 0;\r\n';
-      output += '  Suunto.alarmBeep();\r\n';
+      if (input.durationAlarm) {
+        output += '  /* Alert that duration is reached */\r\n';
+        output += '  Suunto.alarmBeep();\r\n';
+      }
       output += '}\r\n';
 
       return output;
