@@ -331,17 +331,17 @@ angular.module('ambitIntervalsApp')
       output += '  if (ACTUAL > TO) {\r\n';
       output += '    prefix ="dwn";\r\n';
       if (input.targetAlarm) {
-        output += createTargetAlarm(-1, 2);
+        output += createTargetAlarm(-1, 2, true);
       }
       output += '  } else if (ACTUAL < FROM) {\r\n';
       output += '    prefix = "up";\r\n';
       if (input.targetAlarm) {
-        output += createTargetAlarm(1, 2);
+        output += createTargetAlarm(1, 2, true);
       }
       output += '  } else {\r\n';
       output += '    prefix = "ok";\r\n';
       if (input.targetAlarm) {
-        output += createTargetAlarm(0, 0);
+        output += createTargetAlarm(0, 0, false);
       }
       output += '  }\r\n\r\n';
       output += '  RESULT = TARGET;\r\n';
