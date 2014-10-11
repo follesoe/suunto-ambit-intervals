@@ -243,6 +243,21 @@ angular.module('ambitIntervalsApp')
       return output;
     };
 
+    var createTargetAlarm  = function (ontarget, alarmcount, checkLapDuration) {
+      var output = '';
+      output += '\r\n';
+      output += '    /* Check if we need to alert for out-of-target */\r\n';
+      if (checkLapDuration) {
+        output += '    if (ONTARGET != ' + ontarget + ' && ALARMCOUNT == 0 && SUUNTO_LAP_DURATION > 15) {\r\n';
+      } else {
+        output += '    if (ONTARGET != ' + ontarget + ' && ALARMCOUNT == 0) {\r\n';
+      }
+      output += '      ONTARGET = ' +  ontarget + ';\r\n';
+      output += '      ALARMCOUNT = ' + alarmcount + ';\r\n';
+      output += '    }\r\n';
+      return output;
+    };
+
     this.generateDurationApp = function (interval) {
       var input = JSON.parse(JSON.stringify(interval));
       input = preprocessor.convertPaceToSeconds(input);
@@ -271,8 +286,15 @@ angular.module('ambitIntervalsApp')
       input = preprocessor.convertPaceToSeconds(input);
 
       var output = '';
+      var variables = ['ACTUAL', 'TO', 'FROM', 'FORMATPACE', 'TARGET', 'TARGETSEC', 'TARGETMIN', 'RESULT'];
+
+      if (input.targetAlarm) {
+        variables.push('ALARMCOUNT');
+        variables.push('ONTARGET');
+      }
+
       output += createHeader(input, 'Target');
-      output += createVariableInitialization(['ACTUAL', 'TO', 'FROM', 'FORMATPACE', 'TARGET', 'TARGETSEC', 'TARGETMIN', 'RESULT']);
+      output += createVariableInitialization(variables);
       output += createBody(input, createStepCommentForTarget, createStepBodyForTarget);
 
       output += '/* Set target value */\r\n';
@@ -288,10 +310,19 @@ angular.module('ambitIntervalsApp')
       output += 'if (FORMATPACE == 1) {\r\n';
       output += '  if (ACTUAL > TO) {\r\n';
       output += '    prefix ="up";\r\n';
+      if (input.targetAlarm) {
+        output += createTargetAlarm(1, 2, true);
+      }
       output += '  } else if (ACTUAL < FROM) {\r\n';
       output += '    prefix = "dwn";\r\n';
+      if (input.targetAlarm) {
+        output += createTargetAlarm(-1, 2, true);
+      }
       output += '  } else {\r\n';
       output += '    prefix = "ok";\r\n';
+      if (input.targetAlarm) {
+        output += createTargetAlarm(0, 0, false);
+      }
       output += '  }\r\n\r\n';
       output += '  TARGETSEC = Suunto.mod(TARGET, 60);\r\n';
       output += '  TARGETMIN = (TARGET - TARGETSEC) / 60;\r\n';
@@ -299,13 +330,31 @@ angular.module('ambitIntervalsApp')
       output += '} else {\r\n';
       output += '  if (ACTUAL > TO) {\r\n';
       output += '    prefix ="dwn";\r\n';
+      if (input.targetAlarm) {
+        output += createTargetAlarm(-1, 2);
+      }
       output += '  } else if (ACTUAL < FROM) {\r\n';
       output += '    prefix = "up";\r\n';
+      if (input.targetAlarm) {
+        output += createTargetAlarm(1, 2);
+      }
       output += '  } else {\r\n';
       output += '    prefix = "ok";\r\n';
+      if (input.targetAlarm) {
+        output += createTargetAlarm(0, 0);
+      }
       output += '  }\r\n\r\n';
       output += '  RESULT = TARGET;\r\n';
       output += '}\r\n';
+
+      if (input.targetAlarm) {
+        output += '\r\n';
+        output += '/* Check if alarm is set */\r\n';
+        output += 'if (ALARMCOUNT > 0) {\r\n';
+        output += '  ALARMCOUNT = ALARMCOUNT - 1;\r\n';
+        output += '  Suunto.alarmBeep();\r\n';
+        output += '}\r\n';
+      }
 
       return output;
     };

@@ -22,6 +22,8 @@
 		<li>TARGET</li>
 		<li>TARGETSEC</li>
 		<li>TARGETMIN</li>
+		<li>ALARMCOUNT</li>
+		<li>ONTARGET</li>
 	</ul>
 
 	<figure>
@@ -36,7 +38,17 @@
 		<li>For the <b>Int Duration</b> set it to 0 decimals.</li>
 	</ul>
 
-	<h2>4. Create your interval session</h2>
+	<h2>4. General settings</h2>
+	<p>In addition to name and description you can configure the behavior of the Target and Duration app. You can configure what to display when duration is set to lap (i.e. you don't have a set distance) or target is set to none (i.e. you don't have a target to meet).</p>
+
+	<p>You can toggle if you want an audible alarm when duration is meet, or when you are outside your target. If you turn on out of target alarm, the app will beep twice 15s into your lap, to remind you to get into the target zone. If you fall outside the target zone, the app will beep twice again.</p>
+
+	<figure class="small">
+		<img src="images/workout-settings.png" alt="Workout Settings" />
+		<figcaption>General settings for an interval session.</figcaption>
+	</figure>
+
+	<h2>5. Create your interval session</h2>
 	<p>Use the Interval Designer to create your interval session.<p/>
 
 	<figure>
@@ -44,7 +56,7 @@
 		<figcaption>Example interval set.</figcaption>
 	</figure>
 
-	<h4>4.1 Step Type</h4>
+	<h4>5.1 Step Type</h4>
 	<p>
 		Steps can be of different types. The type of interval is displayed as the prefix for the <b>Int Duration</b> app.
 	</p>
@@ -58,7 +70,7 @@
 		<li>Cool down <i>(cd)</i></li>
 	</ul>
 
-	<h4>4.2 Step Duration</h4>
+	<h4>5.2 Step Duration</h4>
 	<p>
 		Each step has a given duration. At the end of the duration (unless you use Lap as duration) the <b>Int Duration</b> app beeps to notify you to hit the lap button.
 	</p>
@@ -70,7 +82,7 @@
 		<li>Lap <i>(the app counts up distance, untill the lap button is pressed)</i></li>
 	</ul>
 
-	<h4>4.3 Step Target</h4>
+	<h4>5.3 Step Target</h4>
 	<p>
 		Each step has an optional target. The <b>Int Target</b> app will guide you to reach that target by displaying <b>up</b>, </b>down</b> or <b>ok</b> and the target values. The different types of targets are:
 	</p>
@@ -83,7 +95,7 @@
 		<li>Power <i>(target a power range when cycling, in watt)</i></li>
 	</ul>
 
-	<h4>4.4 Default Values</h4>
+	<h4>5.4 Default Values</h4>
 	<p>
 		Setting Duration to <b>Lap</b> means go on for as long as you want. The Interval Designer let you configure what value to display in the <b>Int Duration</b> app. This can be distance covered, time spent or calories burned in the current lap, or your current heart rate.
 	</p>
@@ -91,8 +103,8 @@
 		Setting Target to <b>None</b> means the step has no spesific target. The Interval Designer let you configure what value to display in the <b>Int Target</b> app. This can be your current speed, pace, cadence, power or heart rate. It will not guide you to meet a target, but will display the current value.
 	</p>
 
-	<h2>5. Copy your apps</h2>
-	<h4>5.1 Copy to clipboard</h4>
+	<h2>6. Copy your apps</h2>
+	<h4>6.1 Copy to clipboard</h4>
 	<p>
 		As you design your interval session, the source code for the <b>Int Duration</b> and <b>Int Target</b> apps are updated automatically. Once you are done desining your session, you need to copy the code into the Movescount App Designer.
 	</p>
@@ -100,20 +112,20 @@
 		Click the <b>Select</b> button in the interval designer to mark the code for the app, and hit <b>Ctrl+C (Windows)</b> or <b>Cmd+C (Mac)</b> to copy the code to your clipboard.
 	</p>
 
-	<h4>5.2 Enable advanced editing</h4>
+	<h4>6.2 Enable advanced editing</h4>
 	<p>
 		To paste the app code into Movescount App Designer you need to click the <b>Enable advanced editing</b> link on Movescount. This will enable a text editor where you can paste the code by clicking <b>Ctrl+V (Windows)</b> or <b>Cmd+V (Mac)</b>.
 	</p>
 
 	<p>Click the <b>Verify</b> button on Movescount App Designer to verify that the app is correct, and save your app.</p>
 
-	<h2>6. Add the apps to your watch</h2>
-	<h4>6.1 Create a new sports mode</h4>
+	<h2>7. Add the apps to your watch</h2>
+	<h4>7.1 Create a new sports mode</h4>
 	<p>
 		You can either add the apps to an existing sports mode, or you can create a new one for your interval running.
 	</p>
 
-	<h4>6.2 Create a new screen</h4>
+	<h4>7.2 Create a new screen</h4>
 	<p>
 		The <b>Int Duration</b> and <b>Int Target</b> apps are meant to be used together. I would recommend a three- or two-line screen, with the <b>Int Duration</b> app at the top, and the <b>Int Target</b> app at the bottom.
 	</p>
@@ -127,12 +139,12 @@
 		Uncheck the <b>Log App</b> checkboxes to prevent the watch from using memory to log the output from the <b>Int Duration</b> and <b>Int Target</b> apps. The output from these apps provide little value when analyzing a move.
 	</p>
 
-	<h4>7. Go for a run or ride</h4>
+	<h4>8. Go for a run or ride</h4>
 	<p>
 		After synchronizing your watch's settings you are ready for a run or ride. Remember to hit the lap button once the <b>Int Duration</b> app reaches 0, and the alarm beeps. If you do not hit the lap button, the interval session will not progress to the next step.
 	</p>
 
-	<h4>8. Create a new interval set</h4>
+	<h4>9. Create a new interval set</h4>
 	<p>
 		When you are ready for a new workout, use the Interval Designer to design your session. Then simply replace the source code in the <b>Movescount App Designer</b> and synchronize your watch.
 	</p>
