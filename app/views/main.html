@@ -46,6 +46,12 @@
 
     <div class="interval-metadata-line">
       <label>
+        <input type="checkbox" ng-model="interval.imperial"></input> Use imperial values
+      </label>
+    </div>
+
+    <div class="interval-metadata-line">
+      <label>
         <input type="checkbox" ng-model="interval.durationAlarm"></input> Alarm when duration is reached
       </label>
     </div>
@@ -81,12 +87,12 @@
             </h3>
             <ol ui-tree-nodes ng-model="step.steps" data-nodetype="Repeat">
               <li ng-repeat="repeatStep in step.steps" ui-tree-node data-nodetype="InsideRepeat">
-                <step-editor step="repeatStep" delete-step="deleteStep" repeat-times="step.times"></step-editor>
+                <step-editor step="repeatStep" delete-step="deleteStep" repeat-times="step.times" use-imperial="interval.imperial"></step-editor>
               </li>
             </ol>
           </div>
           <div ng-switch-default>
-            <step-editor step="step" delete-step="deleteStep" repeat-times="1"></step-editor>
+            <step-editor step="step" delete-step="deleteStep" repeat-times="1" use-imperial="interval.imperial"></step-editor>
           </div>
         </div>
       </li>
