@@ -171,12 +171,20 @@ angular.module('ambitIntervalsApp')
 
       if (step.target.type === 'Pace') {
         validateTargetVariables(step, 'Target pace');
-        output += createStepBodyVariables(step, 'SUUNTO_PACE * 60', '/km', 1);
+        if (interval.imperial) {
+          output += createStepBodyVariables(step, 'SUUNTO_PACE * 1.609 * 60', '/mi', 1);
+        } else {
+          output += createStepBodyVariables(step, 'SUUNTO_PACE * 60', '/km', 1);
+        }
       }
 
       if (step.target.type === 'Speed') {
         validateTargetVariables(step, 'Target speed');
-        output += createStepBodyVariables(step, 'SUUNTO_SPEED', 'kmt', 0);
+        if (interval.imperial) {
+          output += createStepBodyVariables(step, 'SUUNTO_SPEED * 0.6214', 'mph', 0);
+        } else {
+          output += createStepBodyVariables(step, 'SUUNTO_SPEED', 'kmh', 0);
+        }
       }
 
       if (step.target.type === 'HR') {
@@ -196,9 +204,17 @@ angular.module('ambitIntervalsApp')
 
       if (step.target.type === 'None') {
         if (interval.defaultTargetType === 'Pace') {
-          output += createNoTargetStepBodyVariables('SUUNTO_PACE * 60', '/km', 1);
+          if (interval.imperial) {
+            output += createNoTargetStepBodyVariables('SUUNTO_PACE * 1.609 * 60', '/mi', 1);
+          } else {
+            output += createNoTargetStepBodyVariables('SUUNTO_PACE * 60', '/km', 1);
+          }
         } else if (interval.defaultTargetType === 'Speed') {
-          output += createNoTargetStepBodyVariables('SUUNTO_SPEED', 'kmt', 0);
+          if (interval.imperial) {
+            output += createNoTargetStepBodyVariables('SUUNTO_SPEED * 0.6214', 'mph', 0);
+          } else {
+            output += createNoTargetStepBodyVariables('SUUNTO_SPEED', 'kmh', 0);
+          }
         } else if (interval.defaultTargetType === 'HR') {
           output += createNoTargetStepBodyVariables('SUUNTO_HR', 'bpm', 0);
         } else if (interval.defaultTargetType === 'Power') {
