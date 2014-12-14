@@ -68,8 +68,13 @@ angular.module('ambitIntervalsApp')
 
       if (step.duration.type === 'Lap') {
         if (interval.defaultDurationType === 'Distance') {
-          output += '  postfix = "m";\r\n';
-          output += '  RESULT = SUUNTO_LAP_DISTANCE * 1000;\r\n';
+          if (interval.imperial) {
+            output += '  postfix = "yd";\r\n';
+            output += '  RESULT = SUUNTO_LAP_DISTANCE * 1000 * 1.0936;\r\n';
+          } else {
+            output += '  postfix = "m";\r\n';
+            output += '  RESULT = SUUNTO_LAP_DISTANCE * 1000;\r\n';
+          }
         } else if (interval.defaultDurationType === 'Time') {
           output += '  postfix = "s";\r\n';
           output += '  RESULT = SUUNTO_LAP_DURATION;\r\n';
@@ -84,8 +89,13 @@ angular.module('ambitIntervalsApp')
 
       if (step.duration.type === 'Distance') {
         validateDurationVariables(step, 'Distance');
-        output += '  postfix = "m";\r\n';
-        output += '  RESULT = ' + (step.duration.value*1000) + ' - (SUUNTO_LAP_DISTANCE * 1000);\r\n';
+        if (interval.imperial) {
+          output += '  postfix = "yd";\r\n';
+          output += '  RESULT = ' + (step.duration.value*1760).toFixed(2) + ' - (SUUNTO_LAP_DISTANCE * 1000 * 1.0936);\r\n';
+        } else {
+          output += '  postfix = "m";\r\n';
+          output += '  RESULT = ' + (step.duration.value*1000) + ' - (SUUNTO_LAP_DISTANCE * 1000);\r\n';
+        }
       }
 
       if (step.duration.type === 'Time') {
