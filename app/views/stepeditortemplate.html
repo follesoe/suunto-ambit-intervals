@@ -11,7 +11,7 @@
 
 	<label ng-show="step.duration.type == 'Distance'">
 		<input type="number" step="0.1" min="0.1" max="100" ng-required="true" ng-model="step.duration.value" />
-		<span ng-show="useImperial == false">km</span>
+		<span ng-show="useImperial !== true">km</span>
 		<span ng-show="useImperial == true">mile</span>
 	</label>
 
@@ -40,7 +40,7 @@
 	<label ng-show="step.target.type == 'Pace'">
 		To
 		<input type="text" ng-model="step.target.to" ng-required="true" ng-pattern="/\d\d:\d\d/" placeholder="mm:ss" />
-		<span ng-show="useImperial == false">min/km</span>
+		<span ng-show="useImperial !== true">min/km</span>
 		<span ng-show="useImperial == true">min/mile</span>
 	</label>
 
@@ -62,7 +62,7 @@
 	<label ng-show="step.target.type == 'Speed'">
 		To
 		<input type="number" step="1" min="0" max="100" ng-required="true" ng-model="step.target.to" />
-		<span ng-show="useImperial == false">km/h</span>
+		<span ng-show="useImperial !== true">km/h</span>
 		<span ng-show="useImperial == true">mph</span>
 	</label>
 
