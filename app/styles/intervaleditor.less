@@ -26,27 +26,27 @@
 	cursor: move;
 }
 
-.WarmUp {
+.step.WarmUp {
 	border-color: @easyColor;
 }
 
-.CoolDown {
+.step.CoolDown {
 	border-color: @moderateColor;
 }
 
-.Interval {
+.step.Interval {
 	border-color: @maximalColor;
 }
 
-.Rest {
+.step.Rest {
 	border-color: @hardColor;
 }
 
-.Recovery {
+.step.Recovery {
 	border-color: @veryHardColor;
 }
 
-.Other {
+.step.Other {
 	border-color: @noIntensityColor;
 }
 
@@ -75,7 +75,7 @@
 
 @media screen and (max-width: 480px) {
 	.interval-metadata-line {
-		input, textarea {
+		input[type='text'], textarea {
 			width: 100%;
 		}
 	}

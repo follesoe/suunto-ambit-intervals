@@ -71,6 +71,7 @@ angular.module('ambitIntervalsApp')
     $scope.$watch('interval', function (newValue) {
       intervalFilesService.saveInterval(newValue);
       $scope.durationAndDistance = calculatorservice.calculateInterval(newValue);
+      $scope.visualisation = calculatorservice.calculateVisualisation(newValue, $scope.durationAndDistance);
     }, true);
 
     $scope.$watch('importFile', function (newValue) {

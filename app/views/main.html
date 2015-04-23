@@ -71,6 +71,13 @@
         <img class="icon" src="images/movescount-duration-icon.png" alt="Estimated duration {{durationAndDistance.duration}}" />
         <span>{{durationAndDistance.duration | sectopace}} h</span>
       </div>
+      <div class="workout-visualisation">
+        <div
+          ng-repeat="step in visualisation"
+          class="step-visualisation {{step.type}} {{step.inRepeat}}"
+          style="width: {{step.width}}"
+          title="{{step.type}}"></div>
+      </div>
     </div>
 
   </div>

@@ -182,6 +182,7 @@ pre {
 	display: flex;
 	align-items: center;
 	margin-right: 24px;
+	flex-shrink: 0;
 
 	img {
 		margin-right: 12px;
@@ -192,6 +193,17 @@ pre {
 
 #disqus_thread {
 	max-width: 770px;
+}
+
+@media screen and (max-width: 720px) {
+	#durationAndDistance {
+		flex-wrap: wrap;
+	}
+
+	.workout-visualisation {
+		min-height: 32px;
+		margin-top: 8px;
+	}
 }
 
 @media screen and (max-width: 480px) {
