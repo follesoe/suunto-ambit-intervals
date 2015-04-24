@@ -16,7 +16,7 @@ angular.module('ambitIntervalsApp')
 
       if (step.duration.type === 'Time') {
         duration = Number(preprocessor.convertPace(step.duration.value));
-        if (step.target.type === 'Pace') {
+        if (step.target.type === 'Pace' || step.target.type === 'Lap Avg Pace') {
           distance = duration / preprocessor.convertPace(step.target.to);
         } else {
           distance = duration / defaultPace;
@@ -25,7 +25,7 @@ angular.module('ambitIntervalsApp')
       else if (step.duration.type === 'Distance') {
         distance = step.duration.value;
 
-        if (step.target.type === 'Pace') {
+        if (step.target.type === 'Pace' || step.target.type === 'Lap Avg Pace') {
           var pace = preprocessor.convertPace(step.target.to);
           duration = pace * step.duration.value;
         } else {
