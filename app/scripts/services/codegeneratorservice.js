@@ -168,13 +168,16 @@ angular.module('ambitIntervalsApp')
 
     var createStepBodyForTarget = function (step, interval) {
       var output = '';
+      var variableName = '';
 
-      if (step.target.type === 'Pace') {
+      if (step.target.type === 'Pace' || step.target.type === 'Lap Avg Pace') {
         validateTargetVariables(step, 'Target pace');
+        variableName = (step.target.type === 'Pace') ? 'SUUNTO_PACE' : 'SUUNTO_LAP_PACE';
+
         if (interval.imperial) {
-          output += createStepBodyVariables(step, 'SUUNTO_PACE * 1.609 * 60', '/mi', 1);
+          output += createStepBodyVariables(step, variableName + ' * 1.609 * 60', '/mi', 1);
         } else {
-          output += createStepBodyVariables(step, 'SUUNTO_PACE * 60', '/km', 1);
+          output += createStepBodyVariables(step, variableName + ' * 60', '/km', 1);
         }
       }
 

@@ -26,7 +26,7 @@ angular.module('ambitIntervalsApp')
 
     this.convertPaceToSeconds = function (input) {
       function convertStep (step) {
-        if (step.target.type === 'Pace') {
+        if (step.target.type === 'Pace' || step.target.type === 'Lap Avg Pace' ) {
           step.target.from = convertPace(step.target.from);
           step.target.to = convertPace(step.target.to);
         }

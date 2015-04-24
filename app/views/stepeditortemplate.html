@@ -32,12 +32,12 @@
 		<select ng-model="step.target.type" ng-options="targetType for targetType in targetTypes"></select>
 	</label>
 
-	<label ng-show="step.target.type == 'Pace'">
+	<label ng-show="step.target.type == 'Pace' || step.target.type == 'Lap Avg Pace'">
 		From
 		<input type="text" ng-model="step.target.from" ng-required="true" ng-pattern="/\d\d:\d\d/" placeholder="mm:ss" />
 	</label>
 
-	<label ng-show="step.target.type == 'Pace'">
+	<label ng-show="step.target.type == 'Pace' || step.target.type == 'Lap Avg Pace'">
 		To
 		<input type="text" ng-model="step.target.to" ng-required="true" ng-pattern="/\d\d:\d\d/" placeholder="mm:ss" />
 		<span ng-show="useImperial !== true">min/km</span>

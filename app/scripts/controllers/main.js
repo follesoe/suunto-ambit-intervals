@@ -59,7 +59,7 @@ angular.module('ambitIntervalsApp')
     $scope.intervals = intervalFilesService.getIntervals();
     $scope.importFile = '';
     $scope.durationTypes = ['Distance', 'Time', 'Calories', 'HR'];
-    $scope.targetTypes = ['Pace', 'Cadence', 'Speed', 'HR', 'Power'];
+    $scope.targetTypes = ['Pace', 'Lap Avg Pace', 'Cadence', 'Speed', 'HR', 'Power'];
 
     $scope.durationAndDistance = {
       duration : 0,
