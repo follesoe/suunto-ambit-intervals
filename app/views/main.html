@@ -62,6 +62,14 @@
       </label>
     </div>
 
+    <div class="interval-metadata-line">
+      <label>
+        <input type="checkbox"
+          ng-disabled="!(interval.targetAlarm || interval.durationAlarm)"
+          ng-model="interval.lightAlarm"></input> Turn on light for alarms
+      </label>
+    </div>
+
     <div id="durationAndDistance">
       <div class="icon-line">
         <img class="icon" src="images/movescount-distance-icon.png" alt="Estimated distance {{durationAndDistance.distance}}" />

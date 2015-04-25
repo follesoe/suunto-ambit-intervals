@@ -308,6 +308,9 @@ angular.module('ambitIntervalsApp')
       if (input.durationAlarm) {
         output += '  /* Alert that duration is reached */\r\n';
         output += '  Suunto.alarmBeep();\r\n';
+        if (input.lightAlarm) {
+          output += '  Suunto.light();\r\n';
+        }
       }
       output += '}\r\n';
 
@@ -387,6 +390,9 @@ angular.module('ambitIntervalsApp')
         output += 'if (ALARMCOUNT > 0) {\r\n';
         output += '  ALARMCOUNT = ALARMCOUNT - 1;\r\n';
         output += '  Suunto.alarmBeep();\r\n';
+        if (input.lightAlarm) {
+          output += '  Suunto.light();\r\n';
+        }
         output += '}\r\n';
       }
 

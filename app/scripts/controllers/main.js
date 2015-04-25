@@ -20,6 +20,7 @@ angular.module('ambitIntervalsApp')
         defaultTargetType: 'Pace',
         durationAlarm: true,
         targetAlarm: false,
+        lightAlarm: false,
         imperial: false,
         steps: []
       };
