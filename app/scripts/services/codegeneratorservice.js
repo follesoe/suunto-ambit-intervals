@@ -282,7 +282,7 @@ angular.module('ambitIntervalsApp')
       output += '\r\n';
       output += '    /* Check if we need to alert for out-of-target */\r\n';
       if (checkLapDuration) {
-        output += '    if (ONTARGET != ' + ontarget + ' && ALARMCOUNT == 0 && SUUNTO_LAP_DURATION > 15) {\r\n';
+        output += '    if (ONTARGET != ' + ontarget + ' && ALARMCOUNT == 0 && SUUNTO_LAP_DURATION > 30) {\r\n';
       } else {
         output += '    if (ONTARGET != ' + ontarget + ' && ALARMCOUNT == 0) {\r\n';
       }
@@ -350,7 +350,7 @@ angular.module('ambitIntervalsApp')
       output += '  } else if (ACTUAL < FROM) {\r\n';
       output += '    prefix = "dwn";\r\n';
       if (input.targetAlarm) {
-        output += createTargetAlarm(-1, 2, true);
+        output += createTargetAlarm(-1, 3, true);
       }
       output += '  } else {\r\n';
       output += '    prefix = "ok";\r\n';
@@ -365,7 +365,7 @@ angular.module('ambitIntervalsApp')
       output += '  if (ACTUAL > TO) {\r\n';
       output += '    prefix ="dwn";\r\n';
       if (input.targetAlarm) {
-        output += createTargetAlarm(-1, 2, true);
+        output += createTargetAlarm(-1, 3, true);
       }
       output += '  } else if (ACTUAL < FROM) {\r\n';
       output += '    prefix = "up";\r\n';
