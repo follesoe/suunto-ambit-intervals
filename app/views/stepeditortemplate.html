@@ -66,12 +66,12 @@
 		<span ng-show="useImperial == true">mph</span>
 	</label>
 
-	<label ng-show="step.target.type == 'HR'">
+	<label ng-show="step.target.type == 'HR' || step.target.type == 'Lap Avg HR'">
 		From
 		<input type="number" step="1" min="33" max="229" ng-required="true" ng-model="step.target.from" />
 	</label>
 
-	<label ng-show="step.target.type == 'HR'">
+	<label ng-show="step.target.type == 'HR' || step.target.type == 'Lap Avg HR'">
 		To
 		<input type="number" step="1" min="33" max="229" ng-required="true" ng-model="step.target.to" /> bpm
 	</label>

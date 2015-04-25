@@ -195,6 +195,11 @@ angular.module('ambitIntervalsApp')
         output += createStepBodyVariables(step, 'SUUNTO_HR', 'bpm', 0);
       }
 
+      if (step.target.type === 'Lap Avg HR') {
+        validateTargetVariables(step, 'Target heart rate');
+        output += createStepBodyVariables(step, 'SUUNTO_LAP_AVG_HR', 'bpm', 0);
+      }
+
       if (step.target.type === 'Power') {
         validateTargetVariables(step, 'Target power');
         output += createStepBodyVariables(step, 'SUUNTO_BIKE_POWER', 'W', 0);
