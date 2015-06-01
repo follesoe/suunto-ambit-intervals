@@ -217,6 +217,12 @@ angular.module('ambitIntervalsApp')
           } else {
             output += createNoTargetStepBodyVariables('SUUNTO_PACE * 60', '/km', 1);
           }
+        } else if (interval.defaultTargetType === 'Lap Avg Pace') {
+          if (interval.imperial) {
+            output += createNoTargetStepBodyVariables('SUUNTO_LAP_PACE * 1.609 * 60', '/mi', 1);
+          } else {
+            output += createNoTargetStepBodyVariables('SUUNTO_LAP_PACE * 60', '/km', 1);
+          }
         } else if (interval.defaultTargetType === 'Speed') {
           if (interval.imperial) {
             output += createNoTargetStepBodyVariables('SUUNTO_SPEED * 0.6214', 'mph', 0);
