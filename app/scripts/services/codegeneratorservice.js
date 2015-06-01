@@ -229,6 +229,8 @@ angular.module('ambitIntervalsApp')
           } else {
             output += createNoTargetStepBodyVariables('SUUNTO_SPEED', 'kmh', 0);
           }
+        } else if (interval.defaultTargetType === 'Lap Avg HR') {
+          output += createNoTargetStepBodyVariables('SUUNTO_LAP_AVG_HR', 'bpm', 0);
         } else if (interval.defaultTargetType === 'HR') {
           output += createNoTargetStepBodyVariables('SUUNTO_HR', 'bpm', 0);
         } else if (interval.defaultTargetType === 'Power') {
